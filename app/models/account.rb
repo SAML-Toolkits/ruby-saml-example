@@ -1,4 +1,5 @@
-require 'onelogin/saml'
+#require 'onelogin/saml'
+# loading handled automatically via the gem
 
 class Account < ActiveRecord::Base
   def Account.get_saml_settings
