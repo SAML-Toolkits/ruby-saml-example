@@ -85,19 +85,18 @@ class SamlController < ApplicationController
   # the LogoutResponse, verify it, then actually delete our session.
   def logout_response
     settings = Account.get_saml_settings
-    logout_response = OneLogin::RubySaml::Logoutresponse.new(params[:SAMLResponse], settings)
+
+    if session.has_key? :transation_id
+      logout_response = OneLogin::RubySaml::Logoutresponse.new(params[:SAMLResponse], settings, :matches_request_id => session[:transation_id])
+    else 
+      logout_response = OneLogin::RubySaml::Logoutresponse.new(params[:SAMLResponse], settings)
+    end
 
     logger.info "LogoutResponse is: #{logout_response.to_s}"
 
     # Validate the SAML Logout Response
     if not logout_response.validate
       logger.error "The SAML Logout Response is invalid"
-    
-    elsif session[:transation_id] && logout_response.in_response_to != session[:transaction_id]
-      logger.error "The SAML Response for #{logout_response.in_response_to} does not match our session transaction ID of #{session[:transaction_id]}"
-
-    elsif logout_response.issuer != settings.idp_metadata
-      logger.error "The SAML Response from IdP #{logout_response.issuer} does not match our trust relationship with #{settings.idp_metadata}"
     else
       # Actually log out this session
       if logout_response.success?
