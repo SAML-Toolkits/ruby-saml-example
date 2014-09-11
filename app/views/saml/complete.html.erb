@@ -5,13 +5,13 @@
 <% if @attrs.any? %>
   <table><thead><th>Name</th><th>Values</th></thead><tbody>
 
-  <% @attrs.each_pair do |key,attr_value|  %>
+  <% @attrs.each do |key,attr_value|  %>
 
     <tr><td><%= key %></td>
     <td>
-    <% if attr_value.values.any? %>
+    <% if attr_value.any? %>
         <ul>
-        <% attr_value.values.each do |val| %>
+        <% attr_value.each do |val| %>
             <li><%= val %></li>
         <% end %>
         </ul>
