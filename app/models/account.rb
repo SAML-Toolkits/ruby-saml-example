@@ -5,28 +5,28 @@ class Account < ActiveRecord::Base
     settings = OneLogin::RubySaml::Settings.new
 
     # Example settings data, replace this values!
-    settings.assertion_consumer_service_url = "http://rubysaml.com:3000/saml/acs"
-    settings.assertion_consumer_logout_service_url = "http://rubysaml.com:3000/saml/logout"
-    settings.issuer                         = "http://rubysaml.com:3000/saml/metadata" # the name of your application
-    settings.idp_sso_target_url             = "http://pitbulk.no-ip.org/simplesaml/saml2/idp/SSOService.php"
-    settings.idp_slo_target_url             = "http://pitbulk.no-ip.org/simplesaml/saml2/idp/SingleLogoutService.php"
+    settings.assertion_consumer_service_url = "http://localhost:3000/saml/acs"
+    settings.assertion_consumer_logout_service_url = "http://localhost:3000/saml/logout"
+    settings.issuer                         = "http://localhost:3000/saml/metadata"
+    settings.idp_sso_target_url             = "https://app.onelogin.com/trust/saml2/http-post/sso/<onelogin-app-id>"
+    settings.idp_slo_target_url             = "https://app.onelogin.com/trust/saml2/http-redirect/slo/<onelogin-app-id>"
     settings.idp_cert                       = "-----BEGIN CERTIFICATE-----
-MIICgTCCAeoCCQCbOlrWDdX7FTANBgkqhkiG9w0BAQUFADCBhDELMAkGA1UEBhMC
-Tk8xGDAWBgNVBAgTD0FuZHJlYXMgU29sYmVyZzEMMAoGA1UEBxMDRm9vMRAwDgYD
-VQQKEwdVTklORVRUMRgwFgYDVQQDEw9mZWlkZS5lcmxhbmcubm8xITAfBgkqhkiG
-9w0BCQEWEmFuZHJlYXNAdW5pbmV0dC5ubzAeFw0wNzA2MTUxMjAxMzVaFw0wNzA4
-MTQxMjAxMzVaMIGEMQswCQYDVQQGEwJOTzEYMBYGA1UECBMPQW5kcmVhcyBTb2xi
-ZXJnMQwwCgYDVQQHEwNGb28xEDAOBgNVBAoTB1VOSU5FVFQxGDAWBgNVBAMTD2Zl
-aWRlLmVybGFuZy5ubzEhMB8GCSqGSIb3DQEJARYSYW5kcmVhc0B1bmluZXR0Lm5v
-MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDivbhR7P516x/S3BqKxupQe0LO
-NoliupiBOesCO3SHbDrl3+q9IbfnfmE04rNuMcPsIxB161TdDpIesLCn7c8aPHIS
-KOtPlAeTZSnb8QAu7aRjZq3+PbrP5uW3TcfCGPtKTytHOge/OlJbo078dVhXQ14d
-1EDwXJW1rRXuUt4C8QIDAQABMA0GCSqGSIb3DQEBBQUAA4GBACDVfp86HObqY+e8
-BUoWQ9+VMQx1ASDohBjwOsg2WykUqRXF+dLfcUH9dWR63CtZIKFDbStNomPnQz7n
-bK+onygwBspVEbnHuUihZq3ZUdmumQqCw4Uvs/1Uvq3orOo/WJVhTyvLgFVK2Qar
-Q4/67OZfHd7R+POBXhophSMv1ZOo
+MIICbjCCAdegAwIBAgIBADANBgkqhkiG9w0BAQ0FADBUMQswCQYDVQQGEwJ1czET
+MBEGA1UECAwKQ2FsaWZvcm5pYTEVMBMGA1UECgwMT25lbG9naW4gSW5jMRkwFwYD
+VQQDDBBhcHAub25lbG9naW4uY29tMB4XDTE0MDkxMTE1MDUxMVoXDTE1MDkxMTE1
+MDUxMVowVDELMAkGA1UEBhMCdXMxEzARBgNVBAgMCkNhbGlmb3JuaWExFTATBgNV
+BAoMDE9uZWxvZ2luIEluYzEZMBcGA1UEAwwQYXBwLm9uZWxvZ2luLmNvbTCBnzAN
+BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAsezUGLSiNMXg80EZMMzvXH43f07a1plU
+mm1poYvVfgSICTqhEUuA0x4w9w/K4BegO07GVkUjNCrvtJEqq4FMDbHj2VfOCMHx
+lYi52/ELXKe6ALSm48y5BG9fd1kGHBqBg741KpMvDkmAbX1sLq5reAjOccIDme2d
+lLD8tQ8y0IMCAwEAAaNQME4wHQYDVR0OBBYEFP3cLGEyby7TBXweK0SeFrvnRoHL
+MB8GA1UdIwQYMBaAFP3cLGEyby7TBXweK0SeFrvnRoHLMAwGA1UdEwQFMAMBAf8w
+DQYJKoZIhvcNAQENBQADgYEAS3vJKRFGjvxOHHNJR77wYlxSSbyb9vmWOVBzaTMd
+5TFfoSDxuP9RskRjSrez/63WON6tdYr/mJNSNB70ZAic824Y9feQ/kBaCswI+Pgp
+b6sFIh4CrY4yCEkBPD8jXFCeJMq+2AqshbITpiu7WF1RCAp/sRAO56giP/B4l0o0
+Tc0=
 -----END CERTIFICATE-----"
-    #or settings.idp_cert_fingerprint        = "" 
+    # or settings.idp_cert_fingerprint           = "3B:05:BE:0A:EC:84:CC:D4:75:97:B3:A2:22:AC:56:21:44:EF:59:E6"
     settings.name_identifier_format         = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
     settings
   end
