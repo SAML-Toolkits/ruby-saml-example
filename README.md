@@ -34,11 +34,11 @@ This ruby-saml-example project works with rails4 and uses is compatible with the
 Getting Started
 ---------------
 
-1. At the command prompt, start a new Rails application using the <tt>rails</tt> command
-   and your application name. Ex: rails myapp
-2. Change directory into myapp and start the web server: <tt>script/server</tt> (run with --help for options)
-3. Go to http://localhost:3000/ and get "Welcome aboard: You're riding the Rails!"
-4. Follow the guidelines to start developing your application
+1. Download the ruby-saml-example code
+2. Install the required gems
+3. Execute the command rails server      [It'ss supposed that you installed previously Rails4]
+4. Go to http://localhost:3000/ and get "Welcome aboard: You're riding the Rails!"
+5. Follow the guidelines to start developing your application
 
 
 Web Servers
@@ -147,10 +147,12 @@ and also on programming in general.
 Debugger
 --------
 
-Debugger support is available through the debugger command when you start your Mongrel or
-Webrick server with --debugger. This means that you can break out of execution at any point
-in the code, investigate and change the model, AND then resume execution! 
 You need to install byebug to run the server in debugging mode. With gems, use 'gem install byebug'
+Later set 
+```
+debugger 
+```
+where you want to set the breackpoint.
 
 Example:
 
