@@ -1,5 +1,5 @@
-Welcome to the ruby-saml project example for Rails2 / Rails3 
-============================================================
+Welcome to the ruby-saml project example for Rails4 
+===================================================
 
 Rails is a web-application framework that includes everything needed to create 
 database-backed web applications according to the Model-View-Control pattern. 
@@ -29,7 +29,7 @@ link:files/vendor/rails/actionpack/README.html.
 Supported Version
 -----------------
 
-This ruby-saml-example project works with rails2 and rails3 and uses is compatible with the ruby-saml toolkit < 0.7.3.
+This ruby-saml-example project works with rails4 and uses is compatible with the ruby-saml toolkit >= 0.8.1.
 
 Getting Started
 ---------------
@@ -150,7 +150,7 @@ Debugger
 Debugger support is available through the debugger command when you start your Mongrel or
 Webrick server with --debugger. This means that you can break out of execution at any point
 in the code, investigate and change the model, AND then resume execution! 
-You need to install ruby-debug to run the server in debugging mode. With gems, use 'gem install ruby-debug'
+You need to install byebug to run the server in debugging mode. With gems, use 'gem install byebug'
 
 Example:
 
@@ -229,7 +229,12 @@ Description of Contents
   Holds the template files for layouts to be used with views. This models the common
   header/footer method of wrapping views. In your views, define a layout using the
   <tt>layout :default</tt> and create a file named default.html.erb. Inside default.html
-  
+
+**app/views/saml**
+  Contains templates used in the saml views:
+  complete.html.erb displays the attribute list of the user
+  fail.html.erb displays an error
+
 **.erb,**
   call <% yield %> to render the view using this layout.
 
