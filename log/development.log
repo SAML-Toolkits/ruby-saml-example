@@ -1098,3 +1098,175 @@ Processing by SamlController#index as HTML
 Created AuthnRequest: <samlp:AuthnRequest AssertionConsumerServiceURL='http://rubysaml.com:3000/saml/acs' Destination='https://app.onelogin.com/trust/saml2/http-post/sso/396421' ID='_c73ac510-1a71-0132-27c0-0090f5dedd77' IssueInstant='2014-09-09T17:08:01Z' Version='2.0' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'><saml:Issuer xmlns:saml='urn:oasis:names:tc:SAML:2.0:assertion'>http://rubysaml.com:3000/saml/metadata</saml:Issuer><samlp:NameIDPolicy AllowCreate='true' Format='urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'/></samlp:AuthnRequest>
 Redirected to https://app.onelogin.com/trust/saml2/http-post/sso/396421?SAMLRequest=nZJfS8MwFMW%2FSt%2Fy1CVpN%2BvCWigbwmCKbOqDLxLTOxfIn5qbqvv2th3CfHAP%0AQl5u%2BJ1zTw5ZoLSmFXUXD24L7x1gTGpECFF7t%2FQOOwthB%2BFDK3jcbkpyiLEV%0AlIbu9ThIJ8pbkTPG6DBRqZAkq95EOzk4nHjsBbJtJ96B8W%2FaDSIaQ4dxVGV0%0AgNLWDzN6ms%2BvphknyXpVkhdV5FLNOEu5LHjKeJ6lWaFYytic7WcNNE1R9Chi%0AB2uHUbpYkozxacrm%2FXnghWDXgvFnkjxBwDFSNmEk%2BbLGoRhfX5IuOOElahRO%0AWkARldjVtxvRk6INPnrlDakWAy3GVeFMf1kuf8ok1eXqLETZyCgX9GzNaWcr%0A7nrf9ereG62OSW2M%2F1wGkBFK0tcIJLnxwcr4dxI%2B4eONbtL9iAqwUpu6aQIg%0A%2FqcNWp2C%2Fv471Tc%3D%0A
 Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2014-10-21 14:18:53 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by SamlController#index as HTML
+  Rendered saml/index.html.erb within layouts/application (1.7ms)
+Completed 200 OK in 57ms (Views: 57.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/saml.css?body=1" for 127.0.0.1 at 2014-10-21 14:18:53 -0700
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-10-21 14:18:53 -0700
+
+
+Started GET "/assets/saml.js?body=1" for 127.0.0.1 at 2014-10-21 14:18:53 -0700
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-10-21 14:18:53 -0700
+
+
+Started GET "/saml" for 127.0.0.1 at 2014-10-21 14:18:57 -0700
+Processing by SamlController#sso as HTML
+Completed 500 Internal Server Error in 2ms
+
+NoMethodError (undefined method `idp' for #<OneLogin::RubySaml::Settings:0x007fa93d106038>):
+  app/models/account.rb:11:in `get_saml_settings'
+  app/controllers/saml_controller.rb:9:in `sso'
+
+
+  Rendered /Users/shyam/.rvm/gems/ruby-2.1.0/gems/actionpack-4.1.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (0.5ms)
+  Rendered /Users/shyam/.rvm/gems/ruby-2.1.0/gems/actionpack-4.1.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (0.9ms)
+  Rendered /Users/shyam/.rvm/gems/ruby-2.1.0/gems/actionpack-4.1.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.5ms)
+  Rendered /Users/shyam/.rvm/gems/ruby-2.1.0/gems/actionpack-4.1.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (14.4ms)
+
+
+Started GET "/" for 127.0.0.1 at 2014-10-21 14:25:30 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by SamlController#index as HTML
+  Rendered saml/index.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 38ms (Views: 37.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-10-21 14:25:30 -0700
+
+
+Started GET "/assets/saml.js?body=1" for 127.0.0.1 at 2014-10-21 14:25:30 -0700
+
+
+Started GET "/assets/saml.css?body=1" for 127.0.0.1 at 2014-10-21 14:25:30 -0700
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-10-21 14:25:30 -0700
+
+
+Started GET "/saml" for 127.0.0.1 at 2014-10-21 14:25:31 -0700
+Processing by SamlController#sso as HTML
+Created AuthnRequest: <samlp:AuthnRequest AssertionConsumerServiceURL='http://localhost:3000/saml/acs' Destination='https://app.onelogin.com/trust/saml2/http-post/sso/&lt;onelogin-app-id&gt;' ID='_b5e5b230-3b96-0132-56d7-38e85647996e' IssueInstant='2014-10-21T21:25:31Z' Version='2.0' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'><saml:Issuer xmlns:saml='urn:oasis:names:tc:SAML:2.0:assertion'>http://localhost:3000/saml/metadata</saml:Issuer><samlp:NameIDPolicy AllowCreate='true' Format='urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'/></samlp:AuthnRequest>
+Redirected to https://app.onelogin.com/trust/saml2/http-post/sso/<onelogin-app-id>?SAMLRequest=nZLJbsIwFEV%2FJSu8Ms5AGAxBikCVkGhVQdtFN5VJXsGSY6d%2BLx3%2BvklQJboo%0Aiy5tnTv4ygtUlall3tDJ7uCtAaQgRwRP2tmVs9hU4Pfg33UBj7ttxk5EtRTC%0AuEKZk0OSSRiGonMRqkAWrFsHbVUnP8PY0qquh86CcUdth4WrBPkGqVfFooN4%0A7bozOjEwNP9Beavjuhwcac6CzTpjL4cU0kOchDw5zMY8jJKYp%2BNywpMpTNPx%0AaDKbjaFFERvYWCRlKWNxGI14FPI4eogjGacyiZ5Z8AQe%2B47xMGTBZ2Usyn6L%0AjDXeSqdQo7SqApRUyH1%2Bu5UtKWvvyBXOsOWio2Uf5S%2F01%2BXqZ1q2vDJkBaRK%0ARWohLjLOgbW8a00363tndPEV5Ma4j5UHRZCxdtT28TfOV4r%2BrhENo%2F5Gl%2Fy1%0ARyVUSpu8LD0g%2FmcKsTwX%2Ff2Nlt8%3D%0A
+Completed 302 Found in 7ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/saml" for 127.0.0.1 at 2014-10-21 14:25:31 -0700
+Processing by SamlController#sso as HTML
+Created AuthnRequest: <samlp:AuthnRequest AssertionConsumerServiceURL='http://localhost:3000/saml/acs' Destination='https://app.onelogin.com/trust/saml2/http-post/sso/&lt;onelogin-app-id&gt;' ID='_b5e6fdf0-3b96-0132-56d8-38e85647996e' IssueInstant='2014-10-21T21:25:31Z' Version='2.0' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'><saml:Issuer xmlns:saml='urn:oasis:names:tc:SAML:2.0:assertion'>http://localhost:3000/saml/metadata</saml:Issuer><samlp:NameIDPolicy AllowCreate='true' Format='urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'/></samlp:AuthnRequest>
+Redirected to https://app.onelogin.com/trust/saml2/http-post/sso/<onelogin-app-id>?SAMLRequest=nZK7bsIwFIZfJROejHOBFAxBikCVkGhVlbZDl8okB7Dk2KnPSS9v3yQIiQ5l%0A6Gjr%2By%2F%2B5TmqytQyb%2BhoH%2BG9AaQgRwRP2tmls9hU4LfgP3QBz4%2BbjB2JaimE%0AcYUyR4ckkzAMReciVIEsWLUO2qpOfoKxpVVdD50F4w7aDgtXCfINUq%2BKRQfx%0A2nVndGJgaHZGeavjuhwcaMaC9Spjb7sxpPtyH%2FJkN015GCUxH6flhCcTmIzT%0A0c10mkKLIjawtkjKUsbiMBrxKORx9BRHMh7LJHplwQt47DvGw5AFX5WxKPst%0AMtZ4K51CjdKqClBSIbf53Ua2pKy9I1c4wxbzjpZ9lL%2FQX5er87RscWXICkiV%0AitRcXGScAmt535quVw%2FO6OI7yI1xn0sPiiBj7ajt42%2BdrxT9XSMaRv2NLvm%2B%0ARyVUSpu8LD0g%2FmcKsTgV%2Ff2NFj8%3D%0A
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/saml" for 127.0.0.1 at 2014-10-21 14:25:31 -0700
+Processing by SamlController#sso as HTML
+Created AuthnRequest: <samlp:AuthnRequest AssertionConsumerServiceURL='http://localhost:3000/saml/acs' Destination='https://app.onelogin.com/trust/saml2/http-post/sso/&lt;onelogin-app-id&gt;' ID='_b5e80df0-3b96-0132-56d9-38e85647996e' IssueInstant='2014-10-21T21:25:31Z' Version='2.0' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'><saml:Issuer xmlns:saml='urn:oasis:names:tc:SAML:2.0:assertion'>http://localhost:3000/saml/metadata</saml:Issuer><samlp:NameIDPolicy AllowCreate='true' Format='urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'/></samlp:AuthnRequest>
+Redirected to https://app.onelogin.com/trust/saml2/http-post/sso/<onelogin-app-id>?SAMLRequest=nZK7TsMwFIZfJVM9OXYSUlq3qRRRIVUChLgNLMhNTltLjh18Tri8PUkqJBjo%0AwGjr%2By%2F%2B5SXqxraq7Ojg7uC1A6SoRIRAxrsL77BrINxDeDMVPN5dFexA1Coh%0ArK%2B0PXgklUkpxeAidIUsWvcOxulBfoSxp3Xbxt6B9Xvj4so3gkKHNKpSMUC8%0A9cMZvZhYWnyjvNdxU0%2F2tGDRZl2wl20OM1nvJM%2B28ymXSZbyfFrPeTaDWT49%0AO5%2FPp9CjiB1sHJJ2VLBUJmc8kTxNHtJEpbnKkmcWPUHAsWMaSxZ9NNahGrco%0AWBec8hoNKqcbQEWVui%2Bvr1RPqjZ48pW3bLUcaDVGhR%2F603L9PS1bnRiyAdK1%0AJr0UPzKOga266U0361tvTfUZldb694sAmqBg%2Faj94y99aDT9XSOJk%2FHG1Hw3%0AogoabWxZ1wEQ%2FzOFWB2L%2Fv5Gqy8%3D%0A
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/saml" for 127.0.0.1 at 2014-10-21 14:25:31 -0700
+Processing by SamlController#sso as HTML
+Created AuthnRequest: <samlp:AuthnRequest AssertionConsumerServiceURL='http://localhost:3000/saml/acs' Destination='https://app.onelogin.com/trust/saml2/http-post/sso/&lt;onelogin-app-id&gt;' ID='_b5e8e3c0-3b96-0132-56da-38e85647996e' IssueInstant='2014-10-21T21:25:31Z' Version='2.0' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'><saml:Issuer xmlns:saml='urn:oasis:names:tc:SAML:2.0:assertion'>http://localhost:3000/saml/metadata</saml:Issuer><samlp:NameIDPolicy AllowCreate='true' Format='urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'/></samlp:AuthnRequest>
+Redirected to https://app.onelogin.com/trust/saml2/http-post/sso/<onelogin-app-id>?SAMLRequest=nZK7bsIwFIZfJROejHMBCoZEikCVkGhVQduhS2WSU7Dk2KnPSS9v3yQIiQ5l%0A6Gjr%2By%2F%2B5QWqytQyb%2Bhot%2FDeAFKQI4In7ezSWWwq8DvwH7qAp%2B0mZUeiWgph%0AXKHM0SHJJAxD0bkIVSALVq2DtqqTn2BsaVXXQ2fBuIO2w8JVgnyD1Kti0UG8%0Adt0ZnRgYmp9R3uq4LgcHmrNgvUrZ634MU0iKkCf72YSHURLz8aRUPJnCdDwZ%0A3cxmE2hRxAbWFklZSlkcRiMehTyOHuNIxmOZRC8seAaPfcd4GLLgqzIWZb9F%0AyhpvpVOoUVpVAUoq5C6%2F28iWlLV35ApnWLboaNlH%2BQv9dbk6T8uyK0NWQKpU%0ApBbiIuMUWMv71nS9enBGF99Bboz7XHpQBClrR20ff%2Bt8pejvGtEw6m90yd96%0AVEKltMnL0gPif6YQ2ano72%2BU%2FQA%3D%0A
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/saml" for 127.0.0.1 at 2014-10-21 14:25:31 -0700
+Processing by SamlController#sso as HTML
+Created AuthnRequest: <samlp:AuthnRequest AssertionConsumerServiceURL='http://localhost:3000/saml/acs' Destination='https://app.onelogin.com/trust/saml2/http-post/sso/&lt;onelogin-app-id&gt;' ID='_b5e99f60-3b96-0132-56db-38e85647996e' IssueInstant='2014-10-21T21:25:31Z' Version='2.0' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'><saml:Issuer xmlns:saml='urn:oasis:names:tc:SAML:2.0:assertion'>http://localhost:3000/saml/metadata</saml:Issuer><samlp:NameIDPolicy AllowCreate='true' Format='urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'/></samlp:AuthnRequest>
+Redirected to https://app.onelogin.com/trust/saml2/http-post/sso/<onelogin-app-id>?SAMLRequest=nZLLSsQwFIZfpavJKk0vtk7jtFAchAEV8bZwI5n2jBNIk5pz6uXtbTsM6EIX%0ALhO%2B%2F5KfrFB1ppf1QHt7C68DIAU1InjSzp47i0MH%2Fg78m27g4fayZHuiXgph%0AXKPM3iHJNIoiMbkI1SAL1qODtmqSH2AcadX3obNg3Iu2YeM6QX5AmlWJmCDe%0Au%2BmMTiwMnR1RPuq4bhcvdMaCzbpkz9sMimKXRzzdFjmP4jThWd5uebqEZZaf%0AnBZFDiOKOMDGIilLJUui%2BITHEU%2Fi%2BySWSSbT%2BIkFj%2BBx7piEEQs%2BOmNRzluU%0AbPBWOoUapVUdoKRG3tVXl3IkZe8ducYZVq0mWs5R%2Fpv%2Bb7k6TsuqP4bsgFSr%0ASK3Et4xDYC%2BvR9PN%2BsYZ3XwGtTHu%2FdyDIijZOOr4%2BAvnO0W%2F14jDeL7RLd%2FN%0AqIROaVO3rQfE%2F0whqkPRn9%2Bo%2BgI%3D%0A
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/saml" for 127.0.0.1 at 2014-10-21 14:25:31 -0700
+Processing by SamlController#sso as HTML
+Created AuthnRequest: <samlp:AuthnRequest AssertionConsumerServiceURL='http://localhost:3000/saml/acs' Destination='https://app.onelogin.com/trust/saml2/http-post/sso/&lt;onelogin-app-id&gt;' ID='_b5ea5ce0-3b96-0132-56dc-38e85647996e' IssueInstant='2014-10-21T21:25:31Z' Version='2.0' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'><saml:Issuer xmlns:saml='urn:oasis:names:tc:SAML:2.0:assertion'>http://localhost:3000/saml/metadata</saml:Issuer><samlp:NameIDPolicy AllowCreate='true' Format='urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'/></samlp:AuthnRequest>
+Redirected to https://app.onelogin.com/trust/saml2/http-post/sso/<onelogin-app-id>?SAMLRequest=nZK7TsMwFIZfJROeHOdCCjVNpKgVUiVAiAIDCzLOobXk2MHnhMvbk6RCKgMd%0AGG19%2F8W%2FvEDV2k7WPe3cHbz1gBTViBDIeLf0DvsWwgbCu9HwcHdVsh1RJ4Ww%0AXiu780gyT5JEjC5CaWTRanAwTo3yPYwDrbou9g6s3xoXa98KCj3SpMrECPHO%0Aj2f04sTSxQ%2FKBx03zcmWLli0XpXs%2BaUAVWhIeP4yn%2FEkzTNezBrN83M4L2an%0AZ%2FP5DAYUsYe1Q1KOSpYl6SlPE56l91kqs0Lm6ROLHiHg1DGLExZ9ttahnLYo%0AWR%2Bc9AoNSqdaQElaburrKzmQsguevPaWVYuRllNUONAfl6ufaVl1ZMgWSDWK%0A1EIcZOwDO3kzmK5Xt94a%2FRXV1vqPZQBFULJh1OHxlz60iv6ukcbpdGMa%2Fjqh%0AElplbN00ARD%2FM4Wo9kV%2Ff6PqGw%3D%3D%0A
+Completed 302 Found in 34ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/saml" for 127.0.0.1 at 2014-10-21 14:25:31 -0700
+Processing by SamlController#sso as HTML
+Created AuthnRequest: <samlp:AuthnRequest AssertionConsumerServiceURL='http://localhost:3000/saml/acs' Destination='https://app.onelogin.com/trust/saml2/http-post/sso/&lt;onelogin-app-id&gt;' ID='_b5f06c90-3b96-0132-56dd-38e85647996e' IssueInstant='2014-10-21T21:25:31Z' Version='2.0' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'><saml:Issuer xmlns:saml='urn:oasis:names:tc:SAML:2.0:assertion'>http://localhost:3000/saml/metadata</saml:Issuer><samlp:NameIDPolicy AllowCreate='true' Format='urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'/></samlp:AuthnRequest>
+Redirected to https://app.onelogin.com/trust/saml2/http-post/sso/<onelogin-app-id>?SAMLRequest=nZJNS8MwGMe%2FSk%2FLKUva2mqzdVAcwkBFnHrwIln7zAXSpOZ56su3t%2B0Q9KAH%0Ajwm%2F%2F0v%2BZIm6tZ2qejq4W3jpASmqECGQ8e7cO%2BxbCFsIr6aG%2B9vLkh2IOiWE%0A9bW2B4%2BkUimlGF2ErpFF68HBOD3KjzAOtO66uXdg%2FbNx89q3gkKPNKkSMUK8%0A8%2BMZvZhZWnyhfNBx08yeacGizbpkT7tsL%2FO6kDzdFTmXcZrwLG8anp7BWZaf%0AnBZFDgOK2MPGIWlHJUtkfMJjyZP4LolVkqk0fmTRAwScOiZzyaL31jpU0xYl%0A64NTXqNB5XQLqKhW2%2BrqUg2k6oInX3vLVsuRVlNU%2BKb%2FW66%2FpmWrP4ZsgXSj%0ASS%2FFt4xjYKeuB9PN%2BsZbU39ElbX%2B7TyAJijZMOrw%2BAsfWk2%2F14jn8XRjGr6f%0AUAWtNrZqmgCI%2F5lCrI5Ff36j1Sc%3D%0A
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/saml" for 127.0.0.1 at 2014-10-21 14:25:31 -0700
+Processing by SamlController#sso as HTML
+Created AuthnRequest: <samlp:AuthnRequest AssertionConsumerServiceURL='http://localhost:3000/saml/acs' Destination='https://app.onelogin.com/trust/saml2/http-post/sso/&lt;onelogin-app-id&gt;' ID='_b5f89c60-3b96-0132-56de-38e85647996e' IssueInstant='2014-10-21T21:25:31Z' Version='2.0' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'><saml:Issuer xmlns:saml='urn:oasis:names:tc:SAML:2.0:assertion'>http://localhost:3000/saml/metadata</saml:Issuer><samlp:NameIDPolicy AllowCreate='true' Format='urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'/></samlp:AuthnRequest>
+Redirected to https://app.onelogin.com/trust/saml2/http-post/sso/<onelogin-app-id>?SAMLRequest=nZK7bsIwFIZfJROejHOBFAxBikCVkGhVlbZDl8okB7Dk2KnPSS9v3yQIiQ5l%0A6Gjr%2By%2F%2B5TmqytQyb%2BhoH%2BG9AaQgRwRP2tmls9hU4LfgP3QBz4%2BbjB2JaimE%0AcYUyR4ckkzAMReciVIEsWLUO2qpOfoKxpVVdD50F4w7aDgtXCfINUq%2BKRQfx%0A2nVndGJgaHZGeavjuhwcaMaC9Spjb7vxfjIt0pAnu2nKwyiJ%2BTgtgScTmIzT%0A0c10mkKLIjawtkjKUsbiMBrxKORx9BRHMh7LJHplwQt47DvGw5AFX5WxKPst%0AMtZ4K51CjdKqClBSIbf53Ua2pKy9I1c4wxbzjpZ9lL%2FQX5er87RscWXICkiV%0AitRcXGScAmt535quVw%2FO6OI7yI1xn0sPiiBj7ajt42%2BdrxT9XSMaRv2NLvm%2B%0ARyVUSpu8LD0g%2FmcKsTgV%2Ff2NFj8%3D%0A
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/saml" for 127.0.0.1 at 2014-10-21 14:25:36 -0700
+Processing by SamlController#sso as HTML
+Created AuthnRequest: <samlp:AuthnRequest AssertionConsumerServiceURL='http://localhost:3000/saml/acs' Destination='https://app.onelogin.com/trust/saml2/http-post/sso/&lt;onelogin-app-id&gt;' ID='_b8f4c4e0-3b96-0132-56df-38e85647996e' IssueInstant='2014-10-21T21:25:36Z' Version='2.0' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'><saml:Issuer xmlns:saml='urn:oasis:names:tc:SAML:2.0:assertion'>http://localhost:3000/saml/metadata</saml:Issuer><samlp:NameIDPolicy AllowCreate='true' Format='urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'/></samlp:AuthnRequest>
+Redirected to https://app.onelogin.com/trust/saml2/http-post/sso/<onelogin-app-id>?SAMLRequest=nZK7bsIwFIZfJROejHOBFAxBikCVkGhVlbZDl8okB7Dk2KnPSS9v3yQIiQ5l%0A6Gjr%2By%2F%2B5TmqytQyb%2BhoH%2BG9AaQgRwRP2tmls9hU4LfgP3QBz4%2BbjB2JaimE%0AcYUyR4ckkzAMReciVIEsWLUO2qpOfoKxpVVdD50F4w7aDgtXCfINUq%2BKRQfx%0A2nVndGJgaHZGeavjuhwcaMaC9Spjb7vJflSMIOTJbpryMEpiPk7LPU8mMBmn%0Ao5vpNIUWRWxgbZGUpYzFYTTiUcjj6CmOZDyWSfrKghfw2HeMhyELvipjUfZb%0AZKzxVjqFGqVVFaCkQm7zu41sSVl7R65whi3mHS37KH%2Bhvy5X52nZ4sqQFZAq%0AFam5uMg4BdbyvjVdrx6c0cV3kBvjPpceFEHG2lHbx986Xyn6u0Y0jPobXfJ9%0Aj0qolDZ5WXpA%2FM8UYnEq%2BvsbLX4A%0A
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/saml" for 127.0.0.1 at 2014-10-21 14:25:41 -0700
+Processing by SamlController#sso as HTML
+Created AuthnRequest: <samlp:AuthnRequest AssertionConsumerServiceURL='http://localhost:3000/saml/acs' Destination='https://app.onelogin.com/trust/saml2/http-post/sso/&lt;onelogin-app-id&gt;' ID='_bb897c20-3b96-0132-56e0-38e85647996e' IssueInstant='2014-10-21T21:25:41Z' Version='2.0' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'><saml:Issuer xmlns:saml='urn:oasis:names:tc:SAML:2.0:assertion'>http://localhost:3000/saml/metadata</saml:Issuer><samlp:NameIDPolicy AllowCreate='true' Format='urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'/></samlp:AuthnRequest>
+Redirected to https://app.onelogin.com/trust/saml2/http-post/sso/<onelogin-app-id>?SAMLRequest=nZJLa8MwEIT%2Fik%2FRSZHtvJU4YBIKgbSUpO2hl6LY20QgS6523ce%2Fr%2BxQSA%2FN%0AoccV38zsDlqgqkwt84ZOdgdvDSBFOSJ40s6unMWmAr8H%2F64LeNxtM3YiqqUQ%0AxhXKnBySHMRxLFoXoQpk0To4aKta%2BRnGQKu67jsLxh217ReuEuQbpE6Vihbi%0AtWtndKJnaP6D8qDjuuwdac6izTpjL4fDdDYp0pgPDrMxj5NBykdjCOMUpqPx%0AcDKbjSGgiA1sLJKylLE0ToY8iXmaPKSJTEdymDyz6Ak8djum%2FZhFn5WxKLsu%0AMtZ4K51CjdKqClBSIff57VYGUtbekSucYctFS8suyl%2For8vVT7VseaXICkiV%0AitRCXGScA2t5F0w363tndPEV5ca4j5UHRZCxUGo4%2Fsb5StHfayT9pHvRJX%2Ft%0AUAmV0iYvSw%2BI%2F6lCLM%2BL%2Fv5Gy28%3D%0A
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/saml" for 127.0.0.1 at 2014-10-21 14:25:42 -0700
+Processing by SamlController#sso as HTML
+Created AuthnRequest: <samlp:AuthnRequest AssertionConsumerServiceURL='http://localhost:3000/saml/acs' Destination='https://app.onelogin.com/trust/saml2/http-post/sso/&lt;onelogin-app-id&gt;' ID='_bc895060-3b96-0132-56e1-38e85647996e' IssueInstant='2014-10-21T21:25:42Z' Version='2.0' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'><saml:Issuer xmlns:saml='urn:oasis:names:tc:SAML:2.0:assertion'>http://localhost:3000/saml/metadata</saml:Issuer><samlp:NameIDPolicy AllowCreate='true' Format='urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'/></samlp:AuthnRequest>
+Redirected to https://app.onelogin.com/trust/saml2/http-post/sso/<onelogin-app-id>?SAMLRequest=nZJNS8MwGMe%2FSk%2FLKUvarXWN66A4hMEUcerBi8T20QXSpOZ56su3t%2B0Q5sEd%0APCb8%2Fi%2F5kyXqxraq7GjvbuGtA6SoRIRAxrsL77BrIOwgvJsK7m%2B3BdsTtUoI%0A6ytt9x5JzaSUYnARukIWrXsH4%2FQgP8DY07ptp96B9a%2FGTSvfCAod0qhKxADx%0A1g9n9GJi6fwH5b2Om3rySucs2qwL9vRcLfJUZpLPnvOMy3iW8DSDmM8WsEiz%0A%2BVmeZ9CjiB1sHJJ2VLBExnMeS57Ed0msklTNk0cWPUDAsWMylSz6bKxDNW5R%0AsC445TUaVE43gIoqtSuvtqonVRs8%2BcpbtloOtBqjwpH%2BtFz%2FTMtWJ4ZsgHSt%0ASS%2FFUcYhsFXXvelmfeOtqb6i0lr%2FcRFAExSsH7V%2F%2FKUPjaa%2Fa8TTeLwxNX8Z%0AUQWNNras6wCI%2F5lCrA5Ff3%2Bj1Tc%3D%0A
+Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/saml" for 127.0.0.1 at 2014-10-21 14:25:42 -0700
+Processing by SamlController#sso as HTML
+Created AuthnRequest: <samlp:AuthnRequest AssertionConsumerServiceURL='http://localhost:3000/saml/acs' Destination='https://app.onelogin.com/trust/saml2/http-post/sso/&lt;onelogin-app-id&gt;' ID='_bc8a2120-3b96-0132-56e2-38e85647996e' IssueInstant='2014-10-21T21:25:42Z' Version='2.0' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'><saml:Issuer xmlns:saml='urn:oasis:names:tc:SAML:2.0:assertion'>http://localhost:3000/saml/metadata</saml:Issuer><samlp:NameIDPolicy AllowCreate='true' Format='urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'/></samlp:AuthnRequest>
+Redirected to https://app.onelogin.com/trust/saml2/http-post/sso/<onelogin-app-id>?SAMLRequest=nZK7bsIwFIZfJROejBNzKRiCFIEqIdGqgrZDl8okp2DJsVOfk17evkkQEh3K%0A0NHW91%2F8y3PUpa1UVtPRbeG9BqQoQ4RAxruld1iXEHYQPkwOT9tNyo5ElRLC%0A%2Blzbo0dSgziOResidI4sWjUOxulWfoKxoXVV9b0D6w%2FG9XNfCgo1UqeSooV4%0A5dszetGzNDujvNFxU%2FQONGPRepWy130%2B0TKRMR%2Fsp2MeJwPJR2OQfDCByWg8%0AvJlOx9CgiDWsHZJ2lDIZJ0OexFwmjzJRcqSG8oVFzxCw6yj7MYu%2BSutQdVuk%0ArA5OeY0GldMloKJc7bK7jWpIVQVPPveWLeYtrbqocKG%2FLtfnadniypAlkC40%0A6bm4yDgFVuq%2BMV2vHrw1%2BXeUWes%2FlwE0QcqaUZvH3%2FpQavq7RtJPuhtT8LcO%0AVVBqY7OiCID4nynE4lT09zda%2FAA%3D%0A
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/saml" for 127.0.0.1 at 2014-10-21 14:25:42 -0700
+Processing by SamlController#sso as HTML
+Created AuthnRequest: <samlp:AuthnRequest AssertionConsumerServiceURL='http://localhost:3000/saml/acs' Destination='https://app.onelogin.com/trust/saml2/http-post/sso/&lt;onelogin-app-id&gt;' ID='_bc8aecc0-3b96-0132-56e3-38e85647996e' IssueInstant='2014-10-21T21:25:42Z' Version='2.0' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'><saml:Issuer xmlns:saml='urn:oasis:names:tc:SAML:2.0:assertion'>http://localhost:3000/saml/metadata</saml:Issuer><samlp:NameIDPolicy AllowCreate='true' Format='urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'/></samlp:AuthnRequest>
+Redirected to https://app.onelogin.com/trust/saml2/http-post/sso/<onelogin-app-id>?SAMLRequest=nZK7TsMwFIZfJROeHOfShtZtKkWtkCoBQhQYWJDrHFpLjh18Tri8PUkqJBhg%0AYLT1%2FRf%2F8hJVY1tZdXR0t%2FDSAVJUIUIg493aO%2BwaCDsIr0bD%2Fe1lyY5ErRTC%0Aeq3s0SPJPEkSMbgIpZFFm97BODXITzD2tGrb2Duw%2FmBcrH0jKHRIoyoTA8Rb%0AP5zRizNLiy%2BU9zpu6rMDLVi03ZTsaa9nCrROeL6fFzxJ84xPC8h5PoPZtJic%0Az%2BcF9ChiB1uHpByVLEvSCU8TnqV3WSqzqZxkjyx6gIBjxyxOWPTeWIdy3KJk%0AXXDSKzQonWoAJWm5q64uZU%2FKNnjy2lu2Wg60HKPCN%2F3fcvU1LVv9MWQDpGpF%0Aaim%2BZZwCW3ndm243N94a%2FRFV1vq3dQBFULJ%2B1P7xFz40in6vkcbpeGNq%2Fjyi%0AEhplbFXXARD%2FM4VYnYr%2B%2FEarTw%3D%3D%0A
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/saml" for 127.0.0.1 at 2014-10-21 14:25:42 -0700
+Processing by SamlController#sso as HTML
+Created AuthnRequest: <samlp:AuthnRequest AssertionConsumerServiceURL='http://localhost:3000/saml/acs' Destination='https://app.onelogin.com/trust/saml2/http-post/sso/&lt;onelogin-app-id&gt;' ID='_bc8bba20-3b96-0132-56e4-38e85647996e' IssueInstant='2014-10-21T21:25:42Z' Version='2.0' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'><saml:Issuer xmlns:saml='urn:oasis:names:tc:SAML:2.0:assertion'>http://localhost:3000/saml/metadata</saml:Issuer><samlp:NameIDPolicy AllowCreate='true' Format='urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'/></samlp:AuthnRequest>
+Redirected to https://app.onelogin.com/trust/saml2/http-post/sso/<onelogin-app-id>?SAMLRequest=nZK7bsIwFIZfJROejBNzKRiCFIEqIdGqgrZDl8okp2DJsVOfk17evkkQEh3K%0A0NHW91%2F8y3PUpa1UVtPRbeG9BqQoQ4RAxruld1iXEHYQPkwOT9tNyo5ElRLC%0A%2Blzbo0dSgziOResidI4sWjUOxulWfoKxoXVV9b0D6w%2FG9XNfCgo1UqeSooV4%0A5dszetGzNDujvNFxU%2FQONGPRepWy130%2B2e%2B1jPlgPx3zOBlIPhrDkA8mMBmN%0AhzfT6RgaFLGGtUPSjlIm42TIk5jL5FEmSo7UUL6w6BkCdh1lP2bRV2kdqm6L%0AlNXBKa%2FRoHK6BFSUq112t1ENqargyefessW8pVUXFS701%2BX6PC1bXBmyBNKF%0AJj0XFxmnwErdN6br1YO3Jv%2BOMmv95zKAJkhZM2rz%2BFsfSk1%2F10j6SXdjCv7W%0AoQpKbWxWFAEQ%2FzOFWJyK%2Fv5Gix8%3D%0A
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/saml" for 127.0.0.1 at 2014-10-21 14:25:42 -0700
+Processing by SamlController#sso as HTML
+Created AuthnRequest: <samlp:AuthnRequest AssertionConsumerServiceURL='http://localhost:3000/saml/acs' Destination='https://app.onelogin.com/trust/saml2/http-post/sso/&lt;onelogin-app-id&gt;' ID='_bc8c8300-3b96-0132-56e5-38e85647996e' IssueInstant='2014-10-21T21:25:42Z' Version='2.0' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'><saml:Issuer xmlns:saml='urn:oasis:names:tc:SAML:2.0:assertion'>http://localhost:3000/saml/metadata</saml:Issuer><samlp:NameIDPolicy AllowCreate='true' Format='urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'/></samlp:AuthnRequest>
+Redirected to https://app.onelogin.com/trust/saml2/http-post/sso/<onelogin-app-id>?SAMLRequest=nZK7TsMwFIZfJVM9uU7SC61pKkWtkCoVhFpgYEHGObSWHDv4nHB5e5xUlWCA%0AgdHW91%2F8ywtUtW1k2dLR7eC1BaSkRIRAxruVd9jWEPYQ3oyG%2B922YEeiRgph%0AvVb26JHkKE1T0bkIpZEl6%2BhgnOrkJxgjrZpm6B1YfzBuqH0tKLRIvSoXHcQb%0A353Ri4GlyzPKo46banCgS5Zs1gV7etYzPYuJfPQ8n%2FI0G%2BV8MoUJH81gNpmO%0AL%2BbzKUQUsYWNQ1KOCpan2ZhnKc%2BzuzyT%2BUSO80eWPEDAvmM%2BTFnyUVuHst%2Bi%0AYG1w0is0KJ2qASVpuS%2BvtzKSsgmevPaWLRcdLfuo8E3%2Ft1ydp2XLP4asgVSl%0ASC3Et4xTYCNvoulmfeut0Z9Jaa1%2FXwVQBAWLo8bHX%2FlQK%2Fq9RjbM%2BhtT8Zce%0AlVArY8uqCoD4nynE8lT05zdafgE%3D%0A
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/saml" for 127.0.0.1 at 2014-10-21 14:25:43 -0700
+Processing by SamlController#sso as HTML
+Created AuthnRequest: <samlp:AuthnRequest AssertionConsumerServiceURL='http://localhost:3000/saml/acs' Destination='https://app.onelogin.com/trust/saml2/http-post/sso/&lt;onelogin-app-id&gt;' ID='_bc8d4530-3b96-0132-56e6-38e85647996e' IssueInstant='2014-10-21T21:25:43Z' Version='2.0' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'><saml:Issuer xmlns:saml='urn:oasis:names:tc:SAML:2.0:assertion'>http://localhost:3000/saml/metadata</saml:Issuer><samlp:NameIDPolicy AllowCreate='true' Format='urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'/></samlp:AuthnRequest>
+Redirected to https://app.onelogin.com/trust/saml2/http-post/sso/<onelogin-app-id>?SAMLRequest=nZK7bsIwFIZfJROejHOBFAxBikCVkGhVQduhS2WSU7Dk2KnPSS9v3yQIiQ5l%0A6Gjr%2By%2F%2B5TmqytQyb%2Bhot%2FDeAFKQI4In7ezSWWwq8DvwH7qAp%2B0mY0eiWgph%0AXKHM0SHJJAxD0bkIVSALVq2DtqqTn2BsaVXXQ2fBuIO2w8JVgnyD1Kti0UG8%0Adt0ZnRgYmp1R3uq4LgcHmrFgvcrY676YlKNxEvJkP015GCUxH6eQ8mQCk3E6%0AuplOU2hRxAbWFklZylgcRiMehTyOHuNIxmM5Sl5Y8Awe%2B47xMGTBV2Usyn6L%0AjDXeSqdQo7SqApRUyF1%2Bt5EtKWvvyBXOsMW8o2Uf5S%2F01%2BXqPC1bXBmyAlKl%0AIjUXFxmnwFret6br1YMzuvgOcmPc59KDIshYO2r7%2BFvnK0V%2F14iGUX%2BjS%2F7W%0AoxIqpU1elh4Q%2FzOFWJyK%2Fv5Gix8%3D%0A
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/saml" for 127.0.0.1 at 2014-10-21 14:25:43 -0700
+Processing by SamlController#sso as HTML
+Created AuthnRequest: <samlp:AuthnRequest AssertionConsumerServiceURL='http://localhost:3000/saml/acs' Destination='https://app.onelogin.com/trust/saml2/http-post/sso/&lt;onelogin-app-id&gt;' ID='_bc8e0b30-3b96-0132-56e7-38e85647996e' IssueInstant='2014-10-21T21:25:43Z' Version='2.0' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'><saml:Issuer xmlns:saml='urn:oasis:names:tc:SAML:2.0:assertion'>http://localhost:3000/saml/metadata</saml:Issuer><samlp:NameIDPolicy AllowCreate='true' Format='urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress' xmlns:samlp='urn:oasis:names:tc:SAML:2.0:protocol'/></samlp:AuthnRequest>
+Redirected to https://app.onelogin.com/trust/saml2/http-post/sso/<onelogin-app-id>?SAMLRequest=nZK7TsMwFIZfJROeHDtJG1q3qRS1QqoECHEbWJCbHFpLjh18Tri8PUkqJBjo%0AwGjr%2By%2F%2B5SXqxraq7OjgbuG1A6SoRIRAxru1d9g1EO4gvJkKHm4vC3YgapUQ%0A1lfaHjySyqSUYnARukIWbXoH4%2FQgP8LY07ptY%2B%2FA%2Br1xceUbQaFDGlWpGCDe%0A%2BuGMXpxZWnyjvNdxU5%2FtacGi7aZgz7tqBnKXSZ7t5jmXSZbyaQ7nPJvBbJpP%0AzufzHHoUsYOtQ9KOCpbKZMITydPkPk1UOlWT7IlFjxBw7JjGkkUfjXWoxi0K%0A1gWnvEaDyukGUFGl7sqrS9WTqg2efOUtWy0HWo1R4Yf%2BtFx%2FT8tWJ4ZsgHSt%0ASS%2FFj4xjYKuue9Pt5sZbU31GpbX%2BfR1AExSsH7V%2F%2FIUPjaa%2FayRxMt6Ymr%2BM%0AqIJGG1vWdQDE%2F0whVseiv7%2FR6gs%3D%0A
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
