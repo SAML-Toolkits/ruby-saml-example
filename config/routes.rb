@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
 
-  get '/', to: 'saml#index'
-  get '/saml', to: 'saml#sso'
-  post '/saml/acs', to: 'saml#acs'
-  get '/saml/metadata', to: 'saml#metadata'
-  get '/saml/logout', to: 'saml#logout'
+  resources :saml, only: :index do
+    collection do
+      get :sso
+      post :acs
+      get :metadata
+      get :logout
+    end
+  end
+
+  root 'saml#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
