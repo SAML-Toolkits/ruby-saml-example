@@ -8,7 +8,7 @@ class Account < ActiveRecord::Base
     settings.assertion_consumer_service_url = "http://localhost:3000/saml/acs"
     settings.assertion_consumer_logout_service_url = "http://localhost:3000/saml/logout"
     settings.issuer                         = "http://localhost:3000/saml/metadata"
-    settings.idp.entity_id                  = "https://app.onelogin.com/saml/metadata/<onelogin-app-id>"
+    settings.idp_entity_id                  = "https://app.onelogin.com/saml/metadata/<onelogin-app-id>"
     settings.idp_sso_target_url             = "https://app.onelogin.com/trust/saml2/http-post/sso/<onelogin-app-id>"
     settings.idp_slo_target_url             = "https://app.onelogin.com/trust/saml2/http-redirect/slo/<onelogin-app-id>"
     settings.idp_cert                       = "-----BEGIN CERTIFICATE-----
