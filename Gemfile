@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'ruby-saml', '>=0.8.1'
+gem 'ruby-saml', :git => 'https://github.com/onelogin/ruby-saml.git'
 
 gem 'byebug'
 
