@@ -2,7 +2,7 @@ class SamlController < ApplicationController
   skip_before_action :verify_authenticity_token, :only => [:acs, :logout]
 
   def index
-    @attrs = []
+    @attrs = {}
   end
 
   def sso
@@ -21,13 +21,13 @@ class SamlController < ApplicationController
     response = OneLogin::RubySaml::Response.new(params[:SAMLResponse])
     response.settings = Account.get_saml_settings
 
-    logger.info "NAMEID: #{response.name_id}"
-
     if response.is_valid?
       session[:user_id] = response.name_id
       session[:attributes] = response.attributes
       @attrs = session[:attributes]
-      redirect_to root_path
+      logger.info "Sucessfully logged"
+      logger.info "NAMEID: #{response.name_id}"
+      render :action => :index
     else
       render :action => :fail
     end
