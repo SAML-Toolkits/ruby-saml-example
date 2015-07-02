@@ -29,7 +29,7 @@ link:files/vendor/rails/actionpack/README.html.
 Supported Version
 -----------------
 
-This ruby-saml-example project works with rails4 and uses is compatible with the ruby-saml toolkit >= 0.8.1.
+This ruby-saml-example project works with rails4 and uses is compatible with the ruby-saml toolkit >= 1.0.0.
 
 Getting Started
 ---------------
@@ -143,6 +143,8 @@ Also, Ruby documentation can be found at http://www.ruby-lang.org/ including:
 These two online (and free) books will bring you up to speed on the Ruby language
 and also on programming in general.
 
+Documentation related to configuring logging on ruby-saml can be found at:
+https://github.com/onelogin/ruby-saml#configuring-logging
 
 Debugger
 --------

@@ -1,5 +1,5 @@
-<% if session[:user_id].present? %>
-  <p>Logged in. <%= session[:user_id] %></p>
+<% if session[:nameid].present? %>
+  <p>NameID: <%= session[:nameid] %></p>
 
   <% if @attrs.any? %>
     <p>Received the following attributes in the SAML Response:</p>
