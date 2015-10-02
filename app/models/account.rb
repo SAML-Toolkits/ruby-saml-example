@@ -1,18 +1,22 @@
 class Account < ActiveRecord::Base
-  def self.get_saml_settings
+  def self.get_saml_settings(url_base)
     # this is just for testing purposes.
     # should retrieve SAML-settings based on subdomain, IP-address, NameID or similar
     settings = OneLogin::RubySaml::Settings.new
 
-    # When disabled, saml validation errors will raise an exception.
-    settings.soft = true
+    if not url_base
+        base = "http://localhost:3000"
+    end
 
     # Example settings data, replace this values!
 
-    # SP section
-    settings.assertion_consumer_service_url = "http://localhost:3000/saml/acs"
-    settings.assertion_consumer_logout_service_url = "http://localhost:3000/saml/logout"
-    settings.issuer                         = "http://localhost:3000/saml/metadata"
+    # When disabled, saml validation errors will raise an exception.
+    settings.soft = true
+
+    #SP section
+    settings.issuer                         = url_base + "/saml/metadata"
+    settings.assertion_consumer_service_url = url_base + "/saml/acs"
+    settings.assertion_consumer_logout_service_url = url_base + "/saml/logout"
 
     # IdP section
     settings.idp_entity_id                  = "https://app.onelogin.com/saml/metadata/<onelogin-app-id>"

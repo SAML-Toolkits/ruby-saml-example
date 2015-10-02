@@ -6,7 +6,7 @@ class SamlController < ApplicationController
   end
 
   def sso
-    settings = Account.get_saml_settings
+    settings = Account.get_saml_settings(get_url_base)
     if settings.nil?
       render :action => :no_settings
       return
@@ -18,7 +18,7 @@ class SamlController < ApplicationController
   end
 
   def acs
-    settings = Account.get_saml_settings
+    settings = Account.get_saml_settings(get_url_base)
     response = OneLogin::RubySaml::Response.new(params[:SAMLResponse], :settings => settings)
 
     if response.is_valid?
@@ -36,7 +36,7 @@ class SamlController < ApplicationController
   end
 
   def metadata
-    settings = Account.get_saml_settings
+    settings = Account.get_saml_settings(get_url_base)
     meta = OneLogin::RubySaml::Metadata.new
     render :xml => meta.generate(settings, true)
   end
@@ -60,7 +60,7 @@ class SamlController < ApplicationController
   # Create an SP initiated SLO
   def sp_logout_request
     # LogoutRequest accepts plain browser requests w/o paramters
-    settings = Account.get_saml_settings
+    settings = Account.get_saml_settings(get_url_base)
 
     if settings.idp_slo_target_url.nil?
       logger.info "SLO IdP Endpoint not found in settings, executing then a normal logout'"
@@ -85,7 +85,7 @@ class SamlController < ApplicationController
   # After sending an SP initiated LogoutRequest to the IdP, we need to accept
   # the LogoutResponse, verify it, then actually delete our session.
   def process_logout_response
-    settings = Account.get_saml_settings
+    settings = Account.get_saml_settings(get_url_base)
     request_id = session[:transaction_id]
     logout_response = OneLogin::RubySaml::Logoutresponse.new(params[:SAMLResponse], settings, :matches_request_id => request_id, :get_params => params)
     logger.info "LogoutResponse is: #{logout_response.response.to_s}"
@@ -106,7 +106,7 @@ class SamlController < ApplicationController
 
   # Method to handle IdP initiated logouts
   def idp_logout_request
-    settings = Account.get_saml_settings
+    settings = Account.get_saml_settings(get_url_base)
     logout_request = OneLogin::RubySaml::SloLogoutrequest.new(params[:SAMLRequest], :settings => settings)
     if not logout_request.is_valid?
       error_msg = "IdP initiated LogoutRequest was not valid!. Errors: #{logout_request.errors}"
@@ -120,6 +120,10 @@ class SamlController < ApplicationController
 
     logout_response = OneLogin::RubySaml::SloLogoutresponse.new.create(settings, logout_request.id, nil, :RelayState => params[:RelayState])
     redirect_to logout_response
+  end
+
+  def get_url_base
+	"#{request.protocol}#{request.host_with_port}"
   end
 
 end
