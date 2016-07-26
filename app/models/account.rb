@@ -1,25 +1,31 @@
 class Account < ActiveRecord::Base
   def self.get_saml_settings(url_base)
-    # this is just for testing purposes.
+    # These are just for testing purposes.
     # should retrieve SAML-settings based on subdomain, IP-address, NameID or similar
     settings = OneLogin::RubySaml::Settings.new
 
-    url_base ||= "http://localhost:3000"
-
-    # Example settings data, replace this values!
+    # -------------------------------------------------------------
+    # Example settings data, replace these values!
+    # -------------------------------------------------------------
 
     # When disabled, saml validation errors will raise an exception.
     settings.soft = true
 
-    #SP section
-    settings.issuer                         = url_base + "/saml/metadata"
+    # SP section
+    settings.issuer                         = url_base + "/saml"
     settings.assertion_consumer_service_url = url_base + "/saml/acs"
     settings.assertion_consumer_logout_service_url = url_base + "/saml/logout"
 
+    idp_url_base = 'providerurl'
+
     # IdP section
-    settings.idp_entity_id                  = "https://app.onelogin.com/saml/metadata/<onelogin-app-id>"
-    settings.idp_sso_target_url             = "https://app.onelogin.com/trust/saml2/http-post/sso/<onelogin-app-id>"
-    settings.idp_slo_target_url             = "https://app.onelogin.com/trust/saml2/http-redirect/slo/<onelogin-app-id>"
+    settings.idp_entity_id      = "#{idp_url_base}/saml/metadata"
+    # Single-sign on target to POST to
+    settings.idp_sso_target_url = "#{idp_url_base}/saml2/idp/login"
+    # Single-logout target
+    settings.idp_slo_target_url = "#{idp_url_base}/saml2/idp/login"
+
+    # Choose either a cert or a fingerprint to validate the IdP response:
     settings.idp_cert                       = "-----BEGIN CERTIFICATE-----
 MIICbjCCAdegAwIBAgIBADANBgkqhkiG9w0BAQ0FADBUMQswCQYDVQQGEwJ1czET
 MBEGA1UECAwKQ2FsaWZvcm5pYTEVMBMGA1UECgwMT25lbG9naW4gSW5jMRkwFwYD
@@ -36,8 +42,9 @@ DQYJKoZIhvcNAQENBQADgYEAS3vJKRFGjvxOHHNJR77wYlxSSbyb9vmWOVBzaTMd
 b6sFIh4CrY4yCEkBPD8jXFCeJMq+2AqshbITpiu7WF1RCAp/sRAO56giP/B4l0o0
 Tc0=
 -----END CERTIFICATE-----"
-    # or settings.idp_cert_fingerprint           = "3B:05:BE:0A:EC:84:CC:D4:75:97:B3:A2:22:AC:56:21:44:EF:59:E6"
-    #    settings.idp_cert_fingerprint_algorithm = XMLSecurity::Document::SHA1
+    #
+    # or settings.idp_cert_fingerprint           = "9E:65:2E:03:06:8D:80:F2:86:C7:6C:77:A1:D9:14:97:0A:4D:F4:4D"
+    # settings.idp_cert_fingerprint_algorithm = XMLSecurity::Document::SHA1
 
     settings.name_identifier_format         = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
 
