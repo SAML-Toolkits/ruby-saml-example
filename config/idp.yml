@@ -1,0 +1,9 @@
+# configuration required in app/models/account.rb
+#
+:url_base: 'ruby-saml-example'
+:idp: 'onelogininc.onelogin.dev'
+:idp_port: 3000
+:idp_cert: './certs/idp_cert.pem'
+:certificate: './certs/certificate.pem'
+:private_key: './certs/certificate-key.pem'
+:app_login_id: 11
