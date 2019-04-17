@@ -1,8 +1,8 @@
-Welcome to the ruby-saml project example for Rails4 
+Welcome to the ruby-saml project example for Rails4
 ===================================================
 
-Rails is a web-application framework that includes everything needed to create 
-database-backed web applications according to the Model-View-Control pattern. 
+Rails is a web-application framework that includes everything needed to create
+database-backed web applications according to the Model-View-Control pattern.
 
 This pattern splits the view (also called the presentation) into "dumb" templates
 that are primarily responsible for inserting pre-built data in between HTML tags.
@@ -35,7 +35,7 @@ Getting Started
 ---------------
 
 1. Download the ruby-saml-example code
-2. Install the required gems
+2. Install the required gems `bundle _1.17.3_ update`
 3. Execute the command rails server      [It'ss supposed that you installed previously Rails4]
 4. Go to http://localhost:3000/ and get "Welcome aboard: You're riding the Rails!"
 5. Follow the guidelines to start developing your application
@@ -68,7 +68,7 @@ Apache .htaccess example for FCGI/CGI
 
 If you don't want Rails to look in certain directories,
 use the following rewrite rules so that Apache won't rewrite certain requests
- 
+
 Example:
 ```
   RewriteCond %{REQUEST_URI} ^/notrails.*
@@ -77,7 +77,7 @@ Example:
 
 Redirect all requests not available on the filesystem to Rails
 By default the cgi dispatcher is used which is very slow
- 
+
 For better performance replace the dispatcher with the fastcgi one
 
 Example:
@@ -97,7 +97,7 @@ Example:
   RewriteRule ^([^.]+)$ $1.html [QSA]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule ^(.*)$ dispatch.cgi [QSA,L]
-`` 
+``
 In case Rails experiences terminal errors, Instead of displaying this message you can supply a file here which will be rendered instead.
 
 Example:
@@ -150,9 +150,9 @@ Debugger
 --------
 
 You need to install byebug to run the server in debugging mode. With gems, use 'gem install byebug'
-Later set 
+Later set
 ```
-debugger 
+debugger
 ```
 where you want to set the breackpoint.
 
