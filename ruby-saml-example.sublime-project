@@ -1,0 +1,17 @@
+{
+  "folders":
+  [
+    {
+      "path": ".",
+      "folder_exclude_patterns": [".circleci", ".bundle",".idea","tmp",".capistrano","log","tmp",
+                                  "public/assets","coverage","public/packs"],
+      "file_exclude_patterns": ["*.sublime-workspace",".byebug_history",".DS_Store", "db/development.sqlite3"]
+    }
+  ],
+    "settings":
+    {
+      "translate_tabs_to_spaces": true,
+      "trim_trailing_white_space_on_save": true,
+      "tab_size": 2
+    }
+}
