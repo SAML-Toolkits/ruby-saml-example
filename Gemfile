@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # bundle config local.ruby-saml /Users/guochunzhong/git/sso/ruby-saml/
-gem 'ruby-saml', git: 'https://github.com/thape-cn/ruby-saml', branch: :master
+gem 'ruby-saml', git: 'https://github.com/onelogin/ruby-saml', branch: :master
 
 gem 'byebug'
 
