@@ -66,8 +66,9 @@ GEM
     mini_portile2 (2.4.0)
     minitest (5.11.3)
     multi_json (1.13.1)
-    nokogiri (1.10.2)
+    nokogiri (1.10.3)
       mini_portile2 (~> 2.4.0)
+    puma (3.12.1)
     rack (1.6.11)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -130,6 +131,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   jbuilder (~> 2.8.0)
+  puma
   rails (~> 4.2.11.1)
   ruby-saml!
   sass-rails
