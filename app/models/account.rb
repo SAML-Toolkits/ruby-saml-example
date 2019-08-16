@@ -17,13 +17,13 @@ class Account < ActiveRecord::Base
     settings.assertion_consumer_logout_service_url = url_base + "/saml/logout"
 
     onelogin_app_id = "<onelogin-app-id>"
+    onelogin_sso_slo_id = "<onelogin-sso-slo-id>"
 
     # IdP section
     settings.idp_entity_id                  = "https://app.onelogin.com/saml/metadata/#{onelogin_app_id}"
-    settings.idp_sso_target_url             = "https://app.onelogin.com/trust/saml2/http-redirect/sso/#{onelogin_app_id}"
-    settings.idp_slo_target_url             = "https://app.onelogin.com/trust/saml2/http-redirect/slo/#{onelogin_app_id}"
+    settings.idp_sso_target_url             = "https://app.onelogin.com/trust/saml2/http-post/sso/#{onelogin_sso_slo_id}"
+    settings.idp_slo_target_url             = "https://app.onelogin.com/trust/saml2/http-redirect/slo/#{onelogin_sso_slo_id}"
     settings.idp_cert                       = ""
-
 
     # or settings.idp_cert_fingerprint           = ""
     #    settings.idp_cert_fingerprint_algorithm = XMLSecurity::Document::SHA1
