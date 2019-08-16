@@ -21,7 +21,7 @@ class Account < ActiveRecord::Base
 
     # IdP section
     settings.idp_entity_id                  = "https://app.onelogin.com/saml/metadata/#{onelogin_app_id}"
-    settings.idp_sso_target_url             = "https://app.onelogin.com/trust/saml2/http-post/sso/#{onelogin_sso_slo_id}"
+    settings.idp_sso_target_url             = "https://app.onelogin.com/trust/saml2/http-redirect/sso/#{onelogin_sso_slo_id}"
     settings.idp_slo_target_url             = "https://app.onelogin.com/trust/saml2/http-redirect/slo/#{onelogin_sso_slo_id}"
     settings.idp_cert                       = ""
 
