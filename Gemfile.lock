@@ -119,8 +119,10 @@ GEM
     rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    ruby-saml (1.7.2)
-      nokogiri (>= 1.5.10)
+    rexml (3.2.6)
+    ruby-saml (1.15.0)
+      nokogiri (>= 1.13.10)
+      rexml
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
