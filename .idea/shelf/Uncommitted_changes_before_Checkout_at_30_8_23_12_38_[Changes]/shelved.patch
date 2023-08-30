@@ -1,0 +1,756 @@
+Index: config/initializers/assets.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Be sure to restart your server when you modify this file.\n\n# Version of your assets, change this if you want to expire all your assets.\nRails.application.config.assets.version = '1.0'\n\n# Precompile additional assets.\n# application.js, application.css, and all non-JS/CSS in app/assets folder are already added.\n# Rails.application.config.assets.precompile += %w( search.js )\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/config/initializers/assets.rb b/config/initializers/assets.rb
+--- a/config/initializers/assets.rb	(revision 2c1d3e4fc157ba4e0643784a245e7c25754c4dfc)
++++ b/config/initializers/assets.rb	(date 1693391490334)
+@@ -3,6 +3,9 @@
+ # Version of your assets, change this if you want to expire all your assets.
+ Rails.application.config.assets.version = '1.0'
+ 
++# Add additional assets to the asset load path
++# Rails.application.config.assets.paths << Emoji.images_path
++
+ # Precompile additional assets.
+ # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
+ # Rails.application.config.assets.precompile += %w( search.js )
+Index: Gemfile
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>source 'https://rubygems.org'\n\ngem 'ruby-saml', '~> 1.7.0'\n\ngem 'byebug'\n\n# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'\ngem 'rails', '4.1.5'\n# Use sqlite3 as the database for Active Record\ngem 'sqlite3'\n# Use SCSS for stylesheets\ngem 'sass-rails', '~> 4.0.3'\n# Use Uglifier as compressor for JavaScript assets\n#gem 'uglifier', '>= 1.3.0'\n# Use CoffeeScript for .js.coffee assets and views\n#gem 'coffee-rails', '~> 4.0.0'\n# See https://github.com/sstephenson/execjs#readme for more supported runtimes\n# gem 'therubyracer',  platforms: :ruby\n\n# Use jquery as the JavaScript library\n#gem 'jquery-rails'\n# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks\n#gem 'turbolinks'\n# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder\ngem 'jbuilder', '~> 2.0'\n# bundle exec rake doc:rails generates the API under doc/api.\n#gem 'sdoc', '~> 0.4.0',          group: :doc\n\n# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring\ngem 'spring',        group: :development\n\n# Use ActiveModel has_secure_password\n# gem 'bcrypt', '~> 3.1.7'\n\n# Use unicorn as the app server\n# gem 'unicorn'\n\n# Use Capistrano for deployment\n# gem 'capistrano-rails', group: :development\n\n# Use debugger\n# gem 'debugger', group: [:development, :test]\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Gemfile b/Gemfile
+--- a/Gemfile	(revision 2c1d3e4fc157ba4e0643784a245e7c25754c4dfc)
++++ b/Gemfile	(date 1693391581819)
+@@ -5,11 +5,11 @@
+ gem 'byebug'
+ 
+ # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+-gem 'rails', '4.1.5'
++gem 'rails', '5.0.7.2'
+ # Use sqlite3 as the database for Active Record
+ gem 'sqlite3'
+ # Use SCSS for stylesheets
+-gem 'sass-rails', '~> 4.0.3'
++gem 'sass-rails'
+ # Use Uglifier as compressor for JavaScript assets
+ #gem 'uglifier', '>= 1.3.0'
+ # Use CoffeeScript for .js.coffee assets and views
+@@ -40,4 +40,4 @@
+ 
+ # Use debugger
+ # gem 'debugger', group: [:development, :test]
+-
++gem 'activemodel-serializers-xml'
+Index: app/models/account.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>class Account < ActiveRecord::Base\n  def self.get_saml_settings(url_base)\n    # this is just for testing purposes.\n    # should retrieve SAML-settings based on subdomain, IP-address, NameID or similar\n    settings = OneLogin::RubySaml::Settings.new\n\n    url_base ||= \"http://localhost:3000\"\n\n    # Example settings data, replace this values!\n\n    # When disabled, saml validation errors will raise an exception.\n    settings.soft = true\n\n    #SP section\n    settings.issuer                         = url_base + \"/saml/metadata\"\n    settings.assertion_consumer_service_url = url_base + \"/saml/acs\"\n    settings.assertion_consumer_logout_service_url = url_base + \"/saml/logout\"\n\n    onelogin_app_id = \"<onelogin-app-id>\"\n\n    # IdP section\n    settings.idp_entity_id                  = \"https://app.onelogin.com/saml/metadata/#{onelogin_app_id}\"\n    settings.idp_sso_target_url             = \"https://app.onelogin.com/trust/saml2/http-redirect/sso/#{onelogin_app_id}\"\n    settings.idp_slo_target_url             = \"https://app.onelogin.com/trust/saml2/http-redirect/slo/#{onelogin_app_id}\"\n    settings.idp_cert                       = \"\"\n\n\n    # or settings.idp_cert_fingerprint           = \"\"\n    #    settings.idp_cert_fingerprint_algorithm = XMLSecurity::Document::SHA1\n\n    settings.name_identifier_format         = \"urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress\"\n\n    # Security section\n    settings.security[:authn_requests_signed] = false\n    settings.security[:logout_requests_signed] = false\n    settings.security[:logout_responses_signed] = false\n    settings.security[:metadata_signed] = false\n    settings.security[:digest_method] = XMLSecurity::Document::SHA1\n    settings.security[:signature_method] = XMLSecurity::Document::RSA_SHA1\n\n    settings\n  end\nend\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/models/account.rb b/app/models/account.rb
+--- a/app/models/account.rb	(revision 2c1d3e4fc157ba4e0643784a245e7c25754c4dfc)
++++ b/app/models/account.rb	(date 1693391537102)
+@@ -1,4 +1,4 @@
+-class Account < ActiveRecord::Base
++class Account < ApplicationRecord
+   def self.get_saml_settings(url_base)
+     # this is just for testing purposes.
+     # should retrieve SAML-settings based on subdomain, IP-address, NameID or similar
+Index: config/application.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>require File.expand_path('../boot', __FILE__)\n\n# Pick the frameworks you want:\nrequire \"active_model/railtie\"\nrequire \"active_record/railtie\"\nrequire \"action_controller/railtie\"\nrequire \"action_mailer/railtie\"\nrequire \"action_view/railtie\"\nrequire \"sprockets/railtie\"\n# require \"rails/test_unit/railtie\"\n\n# Require the gems listed in Gemfile, including any gems\n# you've limited to :test, :development, or :production.\nBundler.require(*Rails.groups)\n\nmodule RailsSaml\n  class Application < Rails::Application\n    # Settings in config/environments/* take precedence over those specified here.\n    # Application configuration should go into files in config/initializers\n    # -- all .rb files in that directory are automatically loaded.\n\n    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.\n    # Run \"rake -D time\" for a list of tasks for finding time zone names. Default is UTC.\n    # config.time_zone = 'Central Time (US & Canada)'\n\n    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.\n    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]\n    # config.i18n.default_locale = :de\n  end\nend\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/config/application.rb b/config/application.rb
+--- a/config/application.rb	(revision 2c1d3e4fc157ba4e0643784a245e7c25754c4dfc)
++++ b/config/application.rb	(date 1693391490326)
+@@ -1,13 +1,6 @@
+-require File.expand_path('../boot', __FILE__)
++require_relative 'boot'
+ 
+-# Pick the frameworks you want:
+-require "active_model/railtie"
+-require "active_record/railtie"
+-require "action_controller/railtie"
+-require "action_mailer/railtie"
+-require "action_view/railtie"
+-require "sprockets/railtie"
+-# require "rails/test_unit/railtie"
++require 'rails/all'
+ 
+ # Require the gems listed in Gemfile, including any gems
+ # you've limited to :test, :development, or :production.
+@@ -18,13 +11,5 @@
+     # Settings in config/environments/* take precedence over those specified here.
+     # Application configuration should go into files in config/initializers
+     # -- all .rb files in that directory are automatically loaded.
+-
+-    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
+-    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
+-    # config.time_zone = 'Central Time (US & Canada)'
+-
+-    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
+-    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
+-    # config.i18n.default_locale = :de
+   end
+ end
+Index: Gemfile.lock
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>GEM\n  remote: https://rubygems.org/\n  specs:\n    actionmailer (4.1.5)\n      actionpack (= 4.1.5)\n      actionview (= 4.1.5)\n      mail (~> 2.5.4)\n    actionpack (4.1.5)\n      actionview (= 4.1.5)\n      activesupport (= 4.1.5)\n      rack (~> 1.5.2)\n      rack-test (~> 0.6.2)\n    actionview (4.1.5)\n      activesupport (= 4.1.5)\n      builder (~> 3.1)\n      erubis (~> 2.7.0)\n    activemodel (4.1.5)\n      activesupport (= 4.1.5)\n      builder (~> 3.1)\n    activerecord (4.1.5)\n      activemodel (= 4.1.5)\n      activesupport (= 4.1.5)\n      arel (~> 5.0.0)\n    activesupport (4.1.5)\n      i18n (~> 0.6, >= 0.6.9)\n      json (~> 1.7, >= 1.7.7)\n      minitest (~> 5.1)\n      thread_safe (~> 0.1)\n      tzinfo (~> 1.1)\n    arel (5.0.1.20140414130214)\n    builder (3.2.2)\n    byebug (3.5.1)\n      columnize (~> 0.8)\n      debugger-linecache (~> 1.2)\n      slop (~> 3.6)\n    columnize (0.9.0)\n    debugger-linecache (1.2.0)\n    erubis (2.7.0)\n    hike (1.2.3)\n    i18n (0.7.0)\n    jbuilder (2.2.6)\n      activesupport (>= 3.0.0, < 5)\n      multi_json (~> 1.2)\n    json (1.8.1)\n    macaddr (1.7.1)\n      systemu (~> 2.6.2)\n    mail (2.5.4)\n      mime-types (~> 1.16)\n      treetop (~> 1.4.8)\n    mime-types (1.25.1)\n    mini_portile (0.6.2)\n    minitest (5.5.0)\n    multi_json (1.10.1)\n    nokogiri (1.6.6.2)\n      mini_portile (~> 0.6.0)\n    polyglot (0.3.5)\n    rack (1.5.2)\n    rack-test (0.6.2)\n      rack (>= 1.0)\n    rails (4.1.5)\n      actionmailer (= 4.1.5)\n      actionpack (= 4.1.5)\n      actionview (= 4.1.5)\n      activemodel (= 4.1.5)\n      activerecord (= 4.1.5)\n      activesupport (= 4.1.5)\n      bundler (>= 1.3.0, < 2.0)\n      railties (= 4.1.5)\n      sprockets-rails (~> 2.0)\n    railties (4.1.5)\n      actionpack (= 4.1.5)\n      activesupport (= 4.1.5)\n      rake (>= 0.8.7)\n      thor (>= 0.18.1, < 2.0)\n    rake (10.4.2)\n    sass (3.2.19)\n    sass-rails (4.0.5)\n      railties (>= 4.0.0, < 5.0)\n      sass (~> 3.2.2)\n      sprockets (~> 2.8, < 3.0)\n      sprockets-rails (~> 2.0)\n    slop (3.6.0)\n    spring (1.2.0)\n    sprockets (2.12.3)\n      hike (~> 1.2)\n      multi_json (~> 1.0)\n      rack (~> 1.0)\n      tilt (~> 1.1, != 1.3.0)\n    sprockets-rails (2.2.2)\n      actionpack (>= 3.0)\n      activesupport (>= 3.0)\n      sprockets (>= 2.8, < 4.0)\n    sqlite3 (1.3.10)\n    systemu (2.6.5)\n    thor (0.19.1)\n    thread_safe (0.3.4)\n    tilt (1.4.1)\n    treetop (1.4.15)\n      polyglot\n      polyglot (>= 0.3.1)\n    tzinfo (1.2.2)\n      thread_safe (~> 0.1)\n    uuid (2.3.7)\n      macaddr (~> 1.0)\n\nPLATFORMS\n  ruby\n\nDEPENDENCIES\n  byebug\n  jbuilder (~> 2.0)\n  rails (= 4.1.5)\n  ruby-saml (~> 1.3.0)\n  sass-rails (~> 4.0.3)\n  spring\n  sqlite3\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Gemfile.lock b/Gemfile.lock
+--- a/Gemfile.lock	(revision 2c1d3e4fc157ba4e0643784a245e7c25754c4dfc)
++++ b/Gemfile.lock	(date 1693391802455)
+@@ -1,116 +1,160 @@
+ GEM
+   remote: https://rubygems.org/
+   specs:
+-    actionmailer (4.1.5)
+-      actionpack (= 4.1.5)
+-      actionview (= 4.1.5)
+-      mail (~> 2.5.4)
+-    actionpack (4.1.5)
+-      actionview (= 4.1.5)
+-      activesupport (= 4.1.5)
+-      rack (~> 1.5.2)
+-      rack-test (~> 0.6.2)
+-    actionview (4.1.5)
+-      activesupport (= 4.1.5)
++    actioncable (5.0.7.2)
++      actionpack (= 5.0.7.2)
++      nio4r (>= 1.2, < 3.0)
++      websocket-driver (~> 0.6.1)
++    actionmailer (5.0.7.2)
++      actionpack (= 5.0.7.2)
++      actionview (= 5.0.7.2)
++      activejob (= 5.0.7.2)
++      mail (~> 2.5, >= 2.5.4)
++      rails-dom-testing (~> 2.0)
++    actionpack (5.0.7.2)
++      actionview (= 5.0.7.2)
++      activesupport (= 5.0.7.2)
++      rack (~> 2.0)
++      rack-test (~> 0.6.3)
++      rails-dom-testing (~> 2.0)
++      rails-html-sanitizer (~> 1.0, >= 1.0.2)
++    actionview (5.0.7.2)
++      activesupport (= 5.0.7.2)
+       builder (~> 3.1)
+       erubis (~> 2.7.0)
+-    activemodel (4.1.5)
+-      activesupport (= 4.1.5)
++      rails-dom-testing (~> 2.0)
++      rails-html-sanitizer (~> 1.0, >= 1.0.3)
++    activejob (5.0.7.2)
++      activesupport (= 5.0.7.2)
++      globalid (>= 0.3.6)
++    activemodel (5.0.7.2)
++      activesupport (= 5.0.7.2)
++    activemodel-serializers-xml (1.0.2)
++      activemodel (> 5.x)
++      activesupport (> 5.x)
+       builder (~> 3.1)
+-    activerecord (4.1.5)
+-      activemodel (= 4.1.5)
+-      activesupport (= 4.1.5)
+-      arel (~> 5.0.0)
+-    activesupport (4.1.5)
+-      i18n (~> 0.6, >= 0.6.9)
+-      json (~> 1.7, >= 1.7.7)
++    activerecord (5.0.7.2)
++      activemodel (= 5.0.7.2)
++      activesupport (= 5.0.7.2)
++      arel (~> 7.0)
++    activesupport (5.0.7.2)
++      concurrent-ruby (~> 1.0, >= 1.0.2)
++      i18n (>= 0.7, < 2)
+       minitest (~> 5.1)
+-      thread_safe (~> 0.1)
+       tzinfo (~> 1.1)
+-    arel (5.0.1.20140414130214)
+-    builder (3.2.2)
+-    byebug (3.5.1)
+-      columnize (~> 0.8)
+-      debugger-linecache (~> 1.2)
+-      slop (~> 3.6)
+-    columnize (0.9.0)
+-    debugger-linecache (1.2.0)
++    arel (7.1.4)
++    builder (3.2.4)
++    byebug (11.1.3)
++    concurrent-ruby (1.2.2)
++    crass (1.0.6)
++    date (3.3.3)
+     erubis (2.7.0)
+-    hike (1.2.3)
+-    i18n (0.7.0)
+-    jbuilder (2.2.6)
+-      activesupport (>= 3.0.0, < 5)
+-      multi_json (~> 1.2)
+-    json (1.8.1)
+-    macaddr (1.7.1)
+-      systemu (~> 2.6.2)
+-    mail (2.5.4)
+-      mime-types (~> 1.16)
+-      treetop (~> 1.4.8)
+-    mime-types (1.25.1)
+-    mini_portile (0.6.2)
+-    minitest (5.5.0)
+-    multi_json (1.10.1)
+-    nokogiri (1.6.6.2)
+-      mini_portile (~> 0.6.0)
+-    polyglot (0.3.5)
+-    rack (1.5.2)
+-    rack-test (0.6.2)
++    ffi (1.15.5)
++    globalid (1.1.0)
++      activesupport (>= 5.0)
++    i18n (1.14.1)
++      concurrent-ruby (~> 1.0)
++    jbuilder (2.11.5)
++      actionview (>= 5.0.0)
++      activesupport (>= 5.0.0)
++    loofah (2.21.3)
++      crass (~> 1.0.2)
++      nokogiri (>= 1.12.0)
++    mail (2.8.1)
++      mini_mime (>= 0.1.1)
++      net-imap
++      net-pop
++      net-smtp
++    method_source (1.0.0)
++    mini_mime (1.1.5)
++    mini_portile2 (2.8.4)
++    minitest (5.19.0)
++    net-imap (0.3.7)
++      date
++      net-protocol
++    net-pop (0.1.2)
++      net-protocol
++    net-protocol (0.2.1)
++      timeout
++    net-smtp (0.3.3)
++      net-protocol
++    nio4r (2.5.9)
++    nokogiri (1.13.10)
++      mini_portile2 (~> 2.8.0)
++      racc (~> 1.4)
++    racc (1.7.1)
++    rack (2.2.8)
++    rack-test (0.6.3)
+       rack (>= 1.0)
+-    rails (4.1.5)
+-      actionmailer (= 4.1.5)
+-      actionpack (= 4.1.5)
+-      actionview (= 4.1.5)
+-      activemodel (= 4.1.5)
+-      activerecord (= 4.1.5)
+-      activesupport (= 4.1.5)
+-      bundler (>= 1.3.0, < 2.0)
+-      railties (= 4.1.5)
+-      sprockets-rails (~> 2.0)
+-    railties (4.1.5)
+-      actionpack (= 4.1.5)
+-      activesupport (= 4.1.5)
++    rails (5.0.7.2)
++      actioncable (= 5.0.7.2)
++      actionmailer (= 5.0.7.2)
++      actionpack (= 5.0.7.2)
++      actionview (= 5.0.7.2)
++      activejob (= 5.0.7.2)
++      activemodel (= 5.0.7.2)
++      activerecord (= 5.0.7.2)
++      activesupport (= 5.0.7.2)
++      bundler (>= 1.3.0)
++      railties (= 5.0.7.2)
++      sprockets-rails (>= 2.0.0)
++    rails-dom-testing (2.2.0)
++      activesupport (>= 5.0.0)
++      minitest
++      nokogiri (>= 1.6)
++    rails-html-sanitizer (1.5.0)
++      loofah (~> 2.19, >= 2.19.1)
++    railties (5.0.7.2)
++      actionpack (= 5.0.7.2)
++      activesupport (= 5.0.7.2)
++      method_source
+       rake (>= 0.8.7)
+       thor (>= 0.18.1, < 2.0)
+-    rake (10.4.2)
+-    sass (3.2.19)
+-    sass-rails (4.0.5)
+-      railties (>= 4.0.0, < 5.0)
+-      sass (~> 3.2.2)
+-      sprockets (~> 2.8, < 3.0)
+-      sprockets-rails (~> 2.0)
+-    slop (3.6.0)
+-    spring (1.2.0)
+-    sprockets (2.12.3)
+-      hike (~> 1.2)
+-      multi_json (~> 1.0)
+-      rack (~> 1.0)
+-      tilt (~> 1.1, != 1.3.0)
+-    sprockets-rails (2.2.2)
+-      actionpack (>= 3.0)
+-      activesupport (>= 3.0)
+-      sprockets (>= 2.8, < 4.0)
++    rake (13.0.6)
++    ruby-saml (1.7.2)
++      nokogiri (>= 1.5.10)
++    sass-rails (6.0.0)
++      sassc-rails (~> 2.1, >= 2.1.1)
++    sassc (2.4.0)
++      ffi (~> 1.9)
++    sassc-rails (2.1.2)
++      railties (>= 4.0.0)
++      sassc (>= 2.0)
++      sprockets (> 3.0)
++      sprockets-rails
++      tilt
++    spring (3.1.1)
++    sprockets (4.2.0)
++      concurrent-ruby (~> 1.0)
++      rack (>= 2.2.4, < 4)
++    sprockets-rails (3.2.2)
++      actionpack (>= 4.0)
++      activesupport (>= 4.0)
++      sprockets (>= 3.0.0)
+     sqlite3 (1.3.10)
+-    systemu (2.6.5)
+-    thor (0.19.1)
+-    thread_safe (0.3.4)
+-    tilt (1.4.1)
+-    treetop (1.4.15)
+-      polyglot
+-      polyglot (>= 0.3.1)
+-    tzinfo (1.2.2)
++      mini_portile2 (~> 2.8.0)
++    thor (1.2.2)
++    thread_safe (0.3.6)
++    tilt (2.2.0)
++    timeout (0.4.0)
++    tzinfo (1.2.11)
+       thread_safe (~> 0.1)
+-    uuid (2.3.7)
+-      macaddr (~> 1.0)
++    websocket-driver (0.6.5)
++      websocket-extensions (>= 0.1.0)
++    websocket-extensions (0.1.5)
+ 
+ PLATFORMS
+   ruby
+ 
+ DEPENDENCIES
++  activemodel-serializers-xml
+   byebug
+   jbuilder (~> 2.0)
+-  rails (= 4.1.5)
+-  ruby-saml (~> 1.3.0)
+-  sass-rails (~> 4.0.3)
++  rails (= 5.0.7.2)
++  ruby-saml (~> 1.7.0)
++  sass-rails
+   spring
+   sqlite3
++
++BUNDLED WITH
++   2.4.10
+Index: config/initializers/wrap_parameters.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Be sure to restart your server when you modify this file.\n\n# This file contains settings for ActionController::ParamsWrapper which\n# is enabled by default.\n\n# Enable parameter wrapping for JSON. You can disable this by setting :format to an empty array.\nActiveSupport.on_load(:action_controller) do\n  wrap_parameters format: [:json] if respond_to?(:wrap_parameters)\nend\n\n# To enable root element in JSON for ActiveRecord objects.\n# ActiveSupport.on_load(:active_record) do\n#  self.include_root_in_json = true\n# end\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/config/initializers/wrap_parameters.rb b/config/initializers/wrap_parameters.rb
+--- a/config/initializers/wrap_parameters.rb	(revision 2c1d3e4fc157ba4e0643784a245e7c25754c4dfc)
++++ b/config/initializers/wrap_parameters.rb	(date 1693391490334)
+@@ -5,10 +5,10 @@
+ 
+ # Enable parameter wrapping for JSON. You can disable this by setting :format to an empty array.
+ ActiveSupport.on_load(:action_controller) do
+-  wrap_parameters format: [:json] if respond_to?(:wrap_parameters)
++  wrap_parameters format: [:json]
+ end
+ 
+ # To enable root element in JSON for ActiveRecord objects.
+ # ActiveSupport.on_load(:active_record) do
+-#  self.include_root_in_json = true
++#   self.include_root_in_json = true
+ # end
+Index: config/environment.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Load the Rails application.\nrequire File.expand_path('../application', __FILE__)\n\n# Initialize the Rails application.\nRails.application.initialize!\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/config/environment.rb b/config/environment.rb
+--- a/config/environment.rb	(revision 2c1d3e4fc157ba4e0643784a245e7c25754c4dfc)
++++ b/config/environment.rb	(date 1693391490326)
+@@ -1,5 +1,5 @@
+ # Load the Rails application.
+-require File.expand_path('../application', __FILE__)
++require_relative 'application'
+ 
+ # Initialize the Rails application.
+ Rails.application.initialize!
+Index: config/initializers/cookies_serializer.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Be sure to restart your server when you modify this file.\n\nRails.application.config.action_dispatch.cookies_serializer = :json
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/config/initializers/cookies_serializer.rb b/config/initializers/cookies_serializer.rb
+--- a/config/initializers/cookies_serializer.rb	(revision 2c1d3e4fc157ba4e0643784a245e7c25754c4dfc)
++++ b/config/initializers/cookies_serializer.rb	(date 1693391490334)
+@@ -1,3 +1,5 @@
+ # Be sure to restart your server when you modify this file.
+ 
+-Rails.application.config.action_dispatch.cookies_serializer = :json
+\ No newline at end of file
++# Specify a serializer for the signed and encrypted cookie jars.
++# Valid options are :json, :marshal, and :hybrid.
++Rails.application.config.action_dispatch.cookies_serializer = :json
+Index: config/boot.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Set up gems listed in the Gemfile.\nENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)\n\nrequire 'bundler/setup' if File.exist?(ENV['BUNDLE_GEMFILE'])\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/config/boot.rb b/config/boot.rb
+--- a/config/boot.rb	(revision 2c1d3e4fc157ba4e0643784a245e7c25754c4dfc)
++++ b/config/boot.rb	(date 1693391490326)
+@@ -1,4 +1,3 @@
+-# Set up gems listed in the Gemfile.
+-ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
++ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../Gemfile', __dir__)
+ 
+-require 'bundler/setup' if File.exist?(ENV['BUNDLE_GEMFILE'])
++require 'bundler/setup' # Set up gems listed in the Gemfile.
+Index: bin/rails
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#!/usr/bin/env ruby\nbegin\n  load File.expand_path(\"../spring\", __FILE__)\nrescue LoadError\nend\nAPP_PATH = File.expand_path('../../config/application',  __FILE__)\nrequire_relative '../config/boot'\nrequire 'rails/commands'\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/bin/rails b/bin/rails
+--- a/bin/rails	(revision 2c1d3e4fc157ba4e0643784a245e7c25754c4dfc)
++++ b/bin/rails	(date 1693391490334)
+@@ -1,8 +1,4 @@
+ #!/usr/bin/env ruby
+-begin
+-  load File.expand_path("../spring", __FILE__)
+-rescue LoadError
+-end
+-APP_PATH = File.expand_path('../../config/application',  __FILE__)
++APP_PATH = File.expand_path('../config/application', __dir__)
+ require_relative '../config/boot'
+ require 'rails/commands'
+Index: bin/rake
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#!/usr/bin/env ruby\nbegin\n  load File.expand_path(\"../spring\", __FILE__)\nrescue LoadError\nend\nrequire_relative '../config/boot'\nrequire 'rake'\nRake.application.run\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/bin/rake b/bin/rake
+--- a/bin/rake	(revision 2c1d3e4fc157ba4e0643784a245e7c25754c4dfc)
++++ b/bin/rake	(date 1693391490334)
+@@ -1,8 +1,4 @@
+ #!/usr/bin/env ruby
+-begin
+-  load File.expand_path("../spring", __FILE__)
+-rescue LoadError
+-end
+ require_relative '../config/boot'
+ require 'rake'
+ Rake.application.run
+Index: app/models/application_record.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/models/application_record.rb b/app/models/application_record.rb
+new file mode 100644
+--- /dev/null	(date 1693391537086)
++++ b/app/models/application_record.rb	(date 1693391537086)
+@@ -0,0 +1,5 @@
++# frozen_string_literal: true
++
++class ApplicationRecord < ActiveRecord::Base
++  self.abstract_class = true
++end
+Index: app/assets/config/manifest.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/assets/config/manifest.js b/app/assets/config/manifest.js
+new file mode 100644
+--- /dev/null	(date 1693391524074)
++++ b/app/assets/config/manifest.js	(date 1693391524074)
+@@ -0,0 +1,3 @@
++//= link_tree ../images
++//= link_directory ../javascripts .js
++//= link_directory ../stylesheets .css
+\ No newline at end of file
+Index: config/secrets.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Be sure to restart your server when you modify this file.\n\n# Your secret key is used for verifying the integrity of signed cookies.\n# If you change this key, all old signed cookies will become invalid!\n\n# Make sure the secret is at least 30 characters and all random,\n# no regular words or you'll be exposed to dictionary attacks.\n# You can use `rake secret` to generate a secure secret key.\n\n# Make sure the secrets in this file are kept private\n# if you're sharing your code publicly.\n\ndevelopment:\n  secret_key_base: 2e14d0541d40eaa64ac9bc06105907990e049f0d64c9e225fb712abb90815d7f18de6d5e83e593b37adbf10c70138b645a68a733085f591b4cb719623975a628\n\ntest:\n  secret_key_base: 0fa2052cc63eb48f2cc3ea70e1cc14156bf3939ae08f02b7b3d1d920ede7621963b34569ad26ed3c83fbd2b465a4d313cba12eb784ece602c1e00d96cd6c4f14\n\n# Do not keep production secrets in the repository,\n# instead read values from the environment.\nproduction:\n  secret_key_base: <%= ENV[\"SECRET_KEY_BASE\"] %>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/config/secrets.yml b/config/secrets.yml
+--- a/config/secrets.yml	(revision 2c1d3e4fc157ba4e0643784a245e7c25754c4dfc)
++++ b/config/secrets.yml	(date 1693391581827)
+@@ -5,16 +5,16 @@
+ 
+ # Make sure the secret is at least 30 characters and all random,
+ # no regular words or you'll be exposed to dictionary attacks.
+-# You can use `rake secret` to generate a secure secret key.
++# You can use `rails secret` to generate a secure secret key.
+ 
+ # Make sure the secrets in this file are kept private
+ # if you're sharing your code publicly.
+ 
+ development:
+-  secret_key_base: 2e14d0541d40eaa64ac9bc06105907990e049f0d64c9e225fb712abb90815d7f18de6d5e83e593b37adbf10c70138b645a68a733085f591b4cb719623975a628
++  secret_key_base: ab55f359a9f2f70322e212fd08c1a4e1bed3850a3f2b6fc4f05499c359d9f9051ad0f6cf686c07237d12b0821532f331affa9e382f68ab9fd2519218027c431c
+ 
+ test:
+-  secret_key_base: 0fa2052cc63eb48f2cc3ea70e1cc14156bf3939ae08f02b7b3d1d920ede7621963b34569ad26ed3c83fbd2b465a4d313cba12eb784ece602c1e00d96cd6c4f14
++  secret_key_base: 1579c71ef401c48f14f5b005191aba03f9a095106809824cb1dd00840b0a841b0a3298b5b95d34b7b824e568462df872716ef013dde250f2e37290a37d3583d0
+ 
+ # Do not keep production secrets in the repository,
+ # instead read values from the environment.
+Index: config/environments/test.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>Rails.application.configure do\n  # Settings specified here will take precedence over those in config/application.rb.\n\n  # The test environment is used exclusively to run your application's\n  # test suite. You never need to work with it otherwise. Remember that\n  # your test database is \"scratch space\" for the test suite and is wiped\n  # and recreated between test runs. Don't rely on the data there!\n  config.cache_classes = true\n\n  # Do not eager load code on boot. This avoids loading your whole application\n  # just for the purpose of running a single test. If you are using a tool that\n  # preloads Rails for running tests, you may have to set it to true.\n  config.eager_load = false\n\n  # Configure static asset server for tests with Cache-Control for performance.\n  config.serve_static_assets  = true\n  config.static_cache_control = 'public, max-age=3600'\n\n  # Show full error reports and disable caching.\n  config.consider_all_requests_local       = true\n  config.action_controller.perform_caching = false\n\n  # Raise exceptions instead of rendering exception templates.\n  config.action_dispatch.show_exceptions = false\n\n  # Disable request forgery protection in test environment.\n  config.action_controller.allow_forgery_protection = false\n\n  # Tell Action Mailer not to deliver emails to the real world.\n  # The :test delivery method accumulates sent emails in the\n  # ActionMailer::Base.deliveries array.\n  config.action_mailer.delivery_method = :test\n\n  # Print deprecation notices to the stderr.\n  config.active_support.deprecation = :stderr\n\n  # Raises error for missing translations\n  # config.action_view.raise_on_missing_translations = true\nend\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/config/environments/test.rb b/config/environments/test.rb
+--- a/config/environments/test.rb	(revision 2c1d3e4fc157ba4e0643784a245e7c25754c4dfc)
++++ b/config/environments/test.rb	(date 1693391490330)
+@@ -12,9 +12,11 @@
+   # preloads Rails for running tests, you may have to set it to true.
+   config.eager_load = false
+ 
+-  # Configure static asset server for tests with Cache-Control for performance.
+-  config.serve_static_assets  = true
+-  config.static_cache_control = 'public, max-age=3600'
++  # Configure public file server for tests with Cache-Control for performance.
++  config.public_file_server.enabled = true
++  config.public_file_server.headers = {
++    'Cache-Control' => 'public, max-age=3600'
++  }
+ 
+   # Show full error reports and disable caching.
+   config.consider_all_requests_local       = true
+@@ -25,6 +27,7 @@
+ 
+   # Disable request forgery protection in test environment.
+   config.action_controller.allow_forgery_protection = false
++  config.action_mailer.perform_caching = false
+ 
+   # Tell Action Mailer not to deliver emails to the real world.
+   # The :test delivery method accumulates sent emails in the
+Index: config/environments/production.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>Rails.application.configure do\n  # Settings specified here will take precedence over those in config/application.rb.\n\n  # Code is not reloaded between requests.\n  config.cache_classes = true\n\n  # Eager load code on boot. This eager loads most of Rails and\n  # your application in memory, allowing both threaded web servers\n  # and those relying on copy on write to perform better.\n  # Rake tasks automatically ignore this option for performance.\n  config.eager_load = true\n\n  # Full error reports are disabled and caching is turned on.\n  config.consider_all_requests_local       = false\n  config.action_controller.perform_caching = true\n\n  # Enable Rack::Cache to put a simple HTTP cache in front of your application\n  # Add `rack-cache` to your Gemfile before enabling this.\n  # For large-scale production use, consider using a caching reverse proxy like nginx, varnish or squid.\n  # config.action_dispatch.rack_cache = true\n\n  # Disable Rails's static asset server (Apache or nginx will already do this).\n  config.serve_static_assets = false\n\n  # Compress JavaScripts and CSS.\n  config.assets.js_compressor = :uglifier\n  # config.assets.css_compressor = :sass\n\n  # Do not fallback to assets pipeline if a precompiled asset is missed.\n  config.assets.compile = false\n\n  # Generate digests for assets URLs.\n  config.assets.digest = true\n\n  # `config.assets.precompile` has moved to config/initializers/assets.rb\n\n  # Specifies the header that your server uses for sending files.\n  # config.action_dispatch.x_sendfile_header = \"X-Sendfile\" # for apache\n  # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx\n\n  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.\n  # config.force_ssl = true\n\n  # Set to :debug to see everything in the log.\n  config.log_level = :info\n\n  # Prepend all log lines with the following tags.\n  # config.log_tags = [ :subdomain, :uuid ]\n\n  # Use a different logger for distributed setups.\n  # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)\n\n  # Use a different cache store in production.\n  # config.cache_store = :mem_cache_store\n\n  # Enable serving of images, stylesheets, and JavaScripts from an asset server.\n  # config.action_controller.asset_host = \"http://assets.example.com\"\n\n  # Precompile additional assets.\n  # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.\n  # config.assets.precompile += %w( search.js )\n\n  # Ignore bad email addresses and do not raise email delivery errors.\n  # Set this to true and configure the email server for immediate delivery to raise delivery errors.\n  # config.action_mailer.raise_delivery_errors = false\n\n  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to\n  # the I18n.default_locale when a translation cannot be found).\n  config.i18n.fallbacks = true\n\n  # Send deprecation notices to registered listeners.\n  config.active_support.deprecation = :notify\n\n  # Disable automatic flushing of the log to improve performance.\n  # config.autoflush_log = false\n\n  # Use default logging formatter so that PID and timestamp are not suppressed.\n  config.log_formatter = ::Logger::Formatter.new\n\n  # Do not dump schema after migrations.\n  config.active_record.dump_schema_after_migration = false\nend\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/config/environments/production.rb b/config/environments/production.rb
+--- a/config/environments/production.rb	(revision 2c1d3e4fc157ba4e0643784a245e7c25754c4dfc)
++++ b/config/environments/production.rb	(date 1693391490330)
+@@ -14,13 +14,9 @@
+   config.consider_all_requests_local       = false
+   config.action_controller.perform_caching = true
+ 
+-  # Enable Rack::Cache to put a simple HTTP cache in front of your application
+-  # Add `rack-cache` to your Gemfile before enabling this.
+-  # For large-scale production use, consider using a caching reverse proxy like nginx, varnish or squid.
+-  # config.action_dispatch.rack_cache = true
+-
+-  # Disable Rails's static asset server (Apache or nginx will already do this).
+-  config.serve_static_assets = false
++  # Disable serving static files from the `/public` folder by default since
++  # Apache or NGINX already handles this.
++  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+ 
+   # Compress JavaScripts and CSS.
+   config.assets.js_compressor = :uglifier
+@@ -29,36 +25,37 @@
+   # Do not fallback to assets pipeline if a precompiled asset is missed.
+   config.assets.compile = false
+ 
+-  # Generate digests for assets URLs.
+-  config.assets.digest = true
++  # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
+ 
+-  # `config.assets.precompile` has moved to config/initializers/assets.rb
++  # Enable serving of images, stylesheets, and JavaScripts from an asset server.
++  # config.action_controller.asset_host = 'http://assets.example.com'
+ 
+   # Specifies the header that your server uses for sending files.
+-  # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
+-  # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
++  # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
++  # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
++
++  # Mount Action Cable outside main process or domain
++  # config.action_cable.mount_path = nil
++  # config.action_cable.url = 'wss://example.com/cable'
++  # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
+ 
+   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+   # config.force_ssl = true
+ 
+-  # Set to :debug to see everything in the log.
+-  config.log_level = :info
++  # Use the lowest log level to ensure availability of diagnostic information
++  # when problems arise.
++  config.log_level = :debug
+ 
+   # Prepend all log lines with the following tags.
+-  # config.log_tags = [ :subdomain, :uuid ]
+-
+-  # Use a different logger for distributed setups.
+-  # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
++  config.log_tags = [ :request_id ]
+ 
+   # Use a different cache store in production.
+   # config.cache_store = :mem_cache_store
+ 
+-  # Enable serving of images, stylesheets, and JavaScripts from an asset server.
+-  # config.action_controller.asset_host = "http://assets.example.com"
+-
+-  # Precompile additional assets.
+-  # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
+-  # config.assets.precompile += %w( search.js )
++  # Use a real queuing backend for Active Job (and separate queues per environment)
++  # config.active_job.queue_adapter     = :resque
++  # config.active_job.queue_name_prefix = "rails_saml_#{Rails.env}"
++  config.action_mailer.perform_caching = false
+ 
+   # Ignore bad email addresses and do not raise email delivery errors.
+   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
+@@ -71,12 +68,19 @@
+   # Send deprecation notices to registered listeners.
+   config.active_support.deprecation = :notify
+ 
+-  # Disable automatic flushing of the log to improve performance.
+-  # config.autoflush_log = false
+-
+   # Use default logging formatter so that PID and timestamp are not suppressed.
+   config.log_formatter = ::Logger::Formatter.new
+ 
++  # Use a different logger for distributed setups.
++  # require 'syslog/logger'
++  # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
++
++  if ENV["RAILS_LOG_TO_STDOUT"].present?
++    logger           = ActiveSupport::Logger.new(STDOUT)
++    logger.formatter = config.log_formatter
++    config.logger = ActiveSupport::TaggedLogging.new(logger)
++  end
++
+   # Do not dump schema after migrations.
+   config.active_record.dump_schema_after_migration = false
+ end
+Index: config/initializers/session_store.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Be sure to restart your server when you modify this file.\n\nRails.application.config.session_store :cookie_store, key: '_rails-saml_session'\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/config/initializers/session_store.rb b/config/initializers/session_store.rb
+--- a/config/initializers/session_store.rb	(revision 2c1d3e4fc157ba4e0643784a245e7c25754c4dfc)
++++ b/config/initializers/session_store.rb	(date 1693391490334)
+@@ -1,3 +1,3 @@
+ # Be sure to restart your server when you modify this file.
+ 
+-Rails.application.config.session_store :cookie_store, key: '_rails-saml_session'
++Rails.application.config.session_store :cookie_store, key: '_rails_saml_session'
+Index: config/environments/development.rb
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>Rails.application.configure do\n  # Settings specified here will take precedence over those in config/application.rb.\n\n  # In the development environment your application's code is reloaded on\n  # every request. This slows down response time but is perfect for development\n  # since you don't have to restart the web server when you make code changes.\n  config.cache_classes = false\n\n  # Do not eager load code on boot.\n  config.eager_load = false\n\n  # Show full error reports and disable caching.\n  config.consider_all_requests_local       = true\n  config.action_controller.perform_caching = false\n\n  # Don't care if the mailer can't send.\n  config.action_mailer.raise_delivery_errors = false\n\n  # Print deprecation notices to the Rails logger.\n  config.active_support.deprecation = :log\n\n  # Raise an error on page load if there are pending migrations.\n  config.active_record.migration_error = :page_load\n\n  # Debug mode disables concatenation and preprocessing of assets.\n  # This option may cause significant delays in view rendering with a large\n  # number of complex assets.\n  config.assets.debug = true\n\n  # Adds additional error checking when serving assets at runtime.\n  # Checks for improperly declared sprockets dependencies.\n  # Raises helpful error messages.\n  config.assets.raise_runtime_errors = true\n\n  # Raises error for missing translations\n  # config.action_view.raise_on_missing_translations = true\nend\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/config/environments/development.rb b/config/environments/development.rb
+--- a/config/environments/development.rb	(revision 2c1d3e4fc157ba4e0643784a245e7c25754c4dfc)
++++ b/config/environments/development.rb	(date 1693391490334)
+@@ -9,13 +9,28 @@
+   # Do not eager load code on boot.
+   config.eager_load = false
+ 
+-  # Show full error reports and disable caching.
+-  config.consider_all_requests_local       = true
+-  config.action_controller.perform_caching = false
++  # Show full error reports.
++  config.consider_all_requests_local = true
++
++  # Enable/disable caching. By default caching is disabled.
++  if Rails.root.join('tmp/caching-dev.txt').exist?
++    config.action_controller.perform_caching = true
++
++    config.cache_store = :memory_store
++    config.public_file_server.headers = {
++      'Cache-Control' => 'public, max-age=172800'
++    }
++  else
++    config.action_controller.perform_caching = false
+ 
++    config.cache_store = :null_store
++  end
++
+   # Don't care if the mailer can't send.
+   config.action_mailer.raise_delivery_errors = false
+ 
++  config.action_mailer.perform_caching = false
++
+   # Print deprecation notices to the Rails logger.
+   config.active_support.deprecation = :log
+ 
+@@ -27,11 +42,13 @@
+   # number of complex assets.
+   config.assets.debug = true
+ 
+-  # Adds additional error checking when serving assets at runtime.
+-  # Checks for improperly declared sprockets dependencies.
+-  # Raises helpful error messages.
+-  config.assets.raise_runtime_errors = true
++  # Suppress logger output for asset requests.
++  config.assets.quiet = true
+ 
+   # Raises error for missing translations
+   # config.action_view.raise_on_missing_translations = true
++
++  # Use an evented file watcher to asynchronously detect changes in source code,
++  # routes, locales, etc. This feature depends on the listen gem.
++  # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+ end
