@@ -41,3 +41,7 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 gem 'activemodel-serializers-xml'
+
+group :development do
+  gem 'listen'
+end
