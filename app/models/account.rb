@@ -1,4 +1,4 @@
-class Account < ActiveRecord::Base
+class Account < ApplicationRecord
   def self.get_saml_settings(url_base)
     # this is just for testing purposes.
     # should retrieve SAML-settings based on subdomain, IP-address, NameID or similar
